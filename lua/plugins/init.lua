@@ -1,5 +1,5 @@
 -- ** load test **
-print("plugin loaded")
+-- print("plugin loaded")
 
 return {
 
