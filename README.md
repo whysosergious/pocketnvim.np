@@ -1,2 +1,0 @@
-# pocketnvim
- opinionated nvim config

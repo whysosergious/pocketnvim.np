@@ -1,9 +1,10 @@
-vim.opt.viewoptions:remove "curdir" -- disable saving current directory with views
-vim.opt.shortmess:append { s = true, I = true } -- disable search count wrap and startup messages
+-- vim.opt.viewoptions:remove "curdir" -- disable saving current directory with views
+-- vim.opt.shortmess:append { s = true, I = true } -- disable search count wrap and startup messages
 vim.opt.backspace:append { "nostop" } -- don't stop backspace at insert
 if vim.fn.has "nvim-0.9" == 1 then
   vim.opt.diffopt:append "linematch:60" -- enable linematch diff algorithm
 end
+
 local options = {
   opt = {
     breakindent = true, -- wrap indent to match  line start
@@ -38,7 +39,7 @@ local options = {
     tabstop = 2, -- number of space in a tab
     termguicolors = true, -- enable 24-bit RGB color in the TUI
     timeoutlen = 266, -- shorten key timeout length a little bit for which-key
-    title = true, -- set terminal title to the filename and path
+    title = false, -- set terminal title to the filename and path
     undofile = true, -- enable persistent undo
     updatetime = 300, -- length of time to wait before triggering the plugin
     virtualedit = "block", -- allow going past end of line in visual block mode
@@ -63,11 +64,15 @@ local options = {
     ui_notifications_enabled = true, -- disable notifications (TODO: rename to  notifications_enabled in AstroNvim v4)
     git_worktrees = nil, -- enable git integration for detached worktrees (specify a table where each entry is of the form { toplevel = vim.env.HOME, gitdir=vim.env.HOME .. "/.dotfiles" })
   },
+
+
+
+
   t = vim.t.bufs and vim.t.bufs or { bufs = vim.api.nvim_list_bufs() }, -- initialize buffers for the current tab
 }
 
-for scope, table in pairs(options) do
-  for setting, value in pairs(table) do
-    vim[scope][setting] = value
-  end
-end
+-- for scope, table in pairs(options) do
+--   for setting, value in pairs(table) do
+--     vim[scope][setting] = value
+--   end
+-- end

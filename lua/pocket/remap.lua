@@ -243,4 +243,8 @@ maps.n["<leader>u"] = sections.u
 ---- maps.n["<leader>uy"] = { ui.toggle_syntax, desc = "Toggle syntax highlighting (buffer)" }
 ---- maps.n["<leader>uh"] = { ui.toggle_foldcolumn, desc = "Toggle foldcolumn" }
 
+
 M.set_mappings(maps)
+
+
+
