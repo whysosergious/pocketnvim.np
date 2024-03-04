@@ -36,5 +36,6 @@
   "undotree": { "branch": "master", "commit": "9dbbf3b7d19dda0d22ceca461818e4739ad8154d" },
   "vim-fugitive": { "branch": "master", "commit": "840ce4a9d9087cf9c321917dd6dd050ec6c9c49c" },
   "vim-startuptime": { "branch": "master", "commit": "308b0088a864c4711a96e45b6734cf9294074f65" },
+  "vim-tabby": { "branch": "main", "commit": "afd76df166ed0f223ede1071e0cfde8075cc4a24" },
   "which-key.nvim": { "branch": "main", "commit": "4433e5ec9a507e5097571ed55c02ea9658fb268a" }
 }
