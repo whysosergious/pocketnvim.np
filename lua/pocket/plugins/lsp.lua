@@ -74,6 +74,22 @@ return {
 
 		lsp.setup()
 
+
+-- local lsp_configurations = require('lspconfig.configs')
+
+
+-- if not lsp_configurations.tabby then
+--   lsp_configurations.tabby = {
+--     default_config = {
+--       name = 'tabby-agent',
+--       cmd = {'npx tabby-agent --lsp --stdio'},
+--       filetypes = {'*'},
+--     }
+--   }
+-- end
+
+-- require('lspconfig').tabby.setup({})
+--
 		vim.diagnostic.config({
 			virtual_text = true
 		})

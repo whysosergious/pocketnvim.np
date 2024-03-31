@@ -4,13 +4,73 @@ return {
     "folke/tokyonight.nvim",
     lazy = false, -- make sure we load this during startup if it is your main colorscheme
     priority = 1000, -- make sure to load this before all the other start plugins
+    
     config = function()
-      -- load the colorscheme here
-      vim.cmd([[colorscheme tokyonight]])
-      -- TODO: move to user config
+      
+
+      
+
+      
+            require("tokyonight").setup({
+        style = "moon",
+        -- transparent = true,
+        sidebars = {"qf", "vista_kind", "terminal", "packer", "Mason", "Lazy", "Telescope"},
+        dim_inactive = true,
+        lualine_bold = true,
+
+        on_highlights = function(hl, c)
+    local prompt = "#2d3149"
+    local border = "#382938"
+    hl.TelescopeNormal = {                                  -- ' <<<<---- this worked
+      bg = c.bg_dark,
+      fg = c.fg_dark,
+    }
+    hl.TelescopeBorder = {
+      bg = border,
+      fg = border,
+    }
+    hl.TelescopePromptNormal = {
+      bg = border,
+    }
+    hl.TelescopePromptBorder = {
+      bg = border,
+      fg = border,
+    }
+    -- hl.TelescopePromptTitle = {                              
+    --   bg = prompt,
+    --   fg = prompt,
+    -- }
+    -- hl.TelescopePreviewTitle = {
+    --   bg = c.bg_dark,
+    --   fg = c.bg_dark,
+    -- }
+    -- hl.TelescopeResultsTitle = {
+    --   bg = c.bg_dark,
+    --   fg = c.bg_dark,
+    -- }
+  end,
+      })
+
+      -- load the colorscheme
+    vim.cmd([[colorscheme tokyonight]])
+
+
+-- TODO: move to user config
       vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
       vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+
+
+
+-- vim.api.nvim_exec([[                               -- ' <<<<---- this did not
+--   augroup WindowFocus
+--     autocmd!
+-- autocmd WinEnter * vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+--     autocmd WinLeave *  hi Normal guibg=#2c1e2a
+--   augroup END
+-- ]], false)
+      
     end,
+    
   },
 
   -- I have a separate config.mappings file where I require which-key.

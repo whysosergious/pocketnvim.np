@@ -8,6 +8,10 @@ vim.g.mapleader = " "
 -- vim.opt.shellcmdflag = '-nologo -noprofile -ExecutionPolicy RemoteSigned -command'
 -- vim.opt.shellxquote = ''
 
+vim.opt.shell = 'nu'
+vim.opt.shellcmdflag = '-c'
+vim.opt.shellxquote = ""
+
 -- TODO: configure packer/package manager to init & install per auto
 require("pocket.lazy")
 
@@ -52,5 +56,6 @@ require "telescope".setup {
 --   },
 --   filetype = "nu", -- if filetype does not match the parser name
 -- }
---
+
+
 

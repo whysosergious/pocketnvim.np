@@ -1,4 +1,3 @@
-local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
 local cmd = vim.api.nvim_create_profile_command
 local namespace = vim.api.nvim_create_namespace
@@ -113,5 +112,3 @@ autocmd("FileType", {
 --     vim.cmd.redrawtabline()
 --   end,
 -- })
---
---
