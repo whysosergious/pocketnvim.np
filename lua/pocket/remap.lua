@@ -220,29 +220,29 @@ maps.t["<C-l>"] = { "<cmd>wincmd l<cr>", desc = "Terminal right window navigatio
 
 maps.n["<leader>u"] = sections.u
 -- Custom menu for modification of the user experience
----- if is_available "nvim-autopairs" then maps.n["<leader>ua"] = { ui.toggle_autopairs, desc = "Toggle autopairs" } end
----- maps.n["<leader>ub"] = { ui.toggle_background, desc = "Toggle background" }
----- if is_available "nvim-cmp" then maps.n["<leader>uc"] = { ui.toggle_cmp, desc = "Toggle autocompletion" } end
----- if is_available "nvim-colorizer.lua" then
----- maps.n["<leader>uC"] = { "<cmd>ColorizerToggle<cr>", desc = "Toggle color highlight" }
----- end
+-- if is_available "nvim-autopairs" then maps.n["<leader>ua"] = { ui.toggle_autopairs, desc = "Toggle autopairs" } end
+-- maps.n["<leader>ub"] = { ui.toggle_background, desc = "Toggle background" }
+-- if is_available "nvim-cmp" then maps.n["<leader>uc"] = { ui.toggle_cmp, desc = "Toggle autocompletion" } end
+if is_available "nvim-colorizer.lua" then
+maps.n["<leader>uC"] = { "<cmd>ColorizerToggle<cr>", desc = "Toggle color highlight" }
+end
 
----- maps.n["<leader>ud"] = { ui.toggle_diagnostics, desc = "Toggle diagnostics" }
----- maps.n["<leader>ug"] = { ui.toggle_signcolumn, desc = "Toggle signcolumn" }
----- maps.n["<leader>ui"] = { ui.set_indent, desc = "Change indent setting" }
----- maps.n["<leader>ul"] = { ui.toggle_statusline, desc = "Toggle statusline" }
----- maps.n["<leader>uL"] = { ui.toggle_codelens, desc = "Toggle CodeLens" }
----- maps.n["<leader>un"] = { ui.change_number, desc = "Change line numbering" }
----- maps.n["<leader>uN"] = { ui.toggle_ui_notifications, desc = "Toggle Notifications" }
----- maps.n["<leader>up"] = { ui.toggle_paste, desc = "Toggle paste mode" }
----- maps.n["<leader>us"] = { ui.toggle_spell, desc = "Toggle spellcheck" }
----- maps.n["<leader>uS"] = { ui.toggle_conceal, desc = "Toggle conceal" }
----- maps.n["<leader>ut"] = { ui.toggle_tabline, desc = "Toggle tabline" }
----- maps.n["<leader>uu"] = { ui.toggle_url_match, desc = "Toggle URL highlight" }
----- maps.n["<leader>uw"] = { ui.toggle_wrap, desc = "Toggle wrap" }
----- maps.n["<leader>uy"] = { ui.toggle_syntax, desc = "Toggle syntax highlighting (buffer)" }
----- maps.n["<leader>uh"] = { ui.toggle_foldcolumn, desc = "Toggle foldcolumn" }
-
+-- maps.n["<leader>ud"] = { ui.toggle_diagnostics, desc = "Toggle diagnostics" }
+-- maps.n["<leader>ug"] = { ui.toggle_signcolumn, desc = "Toggle signcolumn" }
+-- maps.n["<leader>ui"] = { ui.set_indent, desc = "Change indent setting" }
+-- maps.n["<leader>ul"] = { ui.toggle_statusline, desc = "Toggle statusline" }
+-- maps.n["<leader>uL"] = { ui.toggle_codelens, desc = "Toggle CodeLens" }
+-- maps.n["<leader>un"] = { ui.change_number, desc = "Change line numbering" }
+-- maps.n["<leader>uN"] = { ui.toggle_ui_notifications, desc = "Toggle Notifications" }
+-- maps.n["<leader>up"] = { ui.toggle_paste, desc = "Toggle paste mode" }
+-- maps.n["<leader>us"] = { ui.toggle_spell, desc = "Toggle spellcheck" }
+-- maps.n["<leader>uS"] = { ui.toggle_conceal, desc = "Toggle conceal" }
+-- maps.n["<leader>ut"] = { ui.toggle_tabline, desc = "Toggle tabline" }
+-- maps.n["<leader>uu"] = { ui.toggle_url_match, desc = "Toggle URL highlight" }
+-- maps.n["<leader>uw"] = { ui.toggle_wrap, desc = "Toggle wrap" }
+-- maps.n["<leader>uy"] = { ui.toggle_syntax, desc = "Toggle syntax highlighting (buffer)" }
+-- maps.n["<leader>uh"] = { ui.toggle_foldcolumn, desc = "Toggle foldcolumn" }
+ 
 
 M.set_mappings(maps)
 

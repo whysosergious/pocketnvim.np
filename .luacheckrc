@@ -5,6 +5,8 @@ globals = {
   "nvim",
   "vim",
   "bit",
+  "autogroup",
+  "ui"
 }
 
 -- Rerun tests only if their modification time changed
