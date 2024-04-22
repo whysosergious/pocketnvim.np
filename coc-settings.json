@@ -1,9 +1,0 @@
-// {
-//   "languageserver": {
-//     "tabby-agent": {
-//       "command": "tabby-agent",
-//       "args": ["--lsp", "--stdio"],
-//       "filetypes": ["*"]
-//     }
-//   }
-// }
