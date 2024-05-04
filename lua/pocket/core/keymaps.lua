@@ -45,8 +45,28 @@ keymap.set('n', '<A-v>', '<C-v>')
 keymap.set('v', '<A-v>', '<C-v>')
 
 
+
+keymap.set('n', '<leader>it', vim.cmd.InspectTree, { desc = "Tree-Sitter - open syntax tree" })
+
 -- ## undotree
 keymap.set('n', '<leader>lc', vim.cmd.UndotreeToggle)
+keymap.set('n', '<leader>cco', function()
+  require("CopilotChat").open({
+    selection = require("CopilotChat.select").buffer,  
+  })
+end,
+  { desc = "CopilotChat - open chat -> ctx: buffer" }
+  )
+  keymap.set('n', '<leader>ccq', 
+    function()
+      local input = vim.fn.input("Quick Chat: ")
+      if input ~= "" then
+        require("CopilotChat").ask(input, { selection = require("CopilotChat.select").buffer })
+      end
+    end,
+    {  desc = "CopilotChat - Quick chat",
+  }
+)
 
 
 
