@@ -1,0 +1,227 @@
+
+-- function! personal#log#autocmds() abort " {{{1
+--   augroup log_autocmds
+--     autocmd!
+--   augroup END
+--
+--   let s:activate = get(s:, 'activate', 0) ? 0 : 1
+--   if !s:activate
+--     call personal#log#log('Stopped autocmd log')
+--     return
+--   endif
+--
+--   call personal#log#log('Started autocmd log')
+--   augroup log_autocmds
+--     for l:au in s:aulist
+--       silent execute printf(
+--             \ 'autocmd %s * call personal#log#autocmd(''%s'')',
+--             \ l:au, l:au)
+--     endfor
+--   augroup END
+-- endfunction
+--
+-- "
+-- function! personal#log#autocmds() abort " {{{1
+--   augroup log_autocmds
+--     autocmd!
+--   augroup END
+--
+--   let s:activate = get(s:, 'activate', 0) ? 0 : 1
+--   if !s:activate
+--     call personal#log#log('Stopped autocmd log')
+--     return
+--   endif
+--
+--   call personal#log#log('Started autocmd log')
+--   augroup log_autocmds
+--     for l:au in s:aulist
+--       silent execute printf(
+--             \ 'autocmd %s * call personal#log#autocmd(''%s'')',
+--             \ l:au, l:au)
+--     endfor
+--   augroup END
+-- endfunction
+--
+-- " These are deliberately left out due to side effects
+-- " - SourceCmd
+-- " - FileAppendCmd
+-- " - FileWriteCmd
+-- " - BufWriteCmd
+-- " - FileReadCmd
+-- " - BufReadCmd
+-- " - FuncUndefined
+--
+-- let s:aulist = [
+--       \ 'BufNewFile',
+--       \ 'BufReadPre',
+--       \ 'BufRead',
+--       \ 'BufReadPost',
+--       \ 'FileReadPre',
+--       \ 'FileReadPost',
+--       \ 'FilterReadPre',
+--       \ 'FilterReadPost',
+--       \ 'StdinReadPre',
+--       \ 'StdinReadPost',
+--       \ 'BufWrite',
+--       \ 'BufWritePre',
+--       \ 'BufWritePost',
+--       \ 'FileWritePre',
+--       \ 'FileWritePost',
+--       \ 'FileAppendPre',
+--       \ 'FileAppendPost',
+--       \ 'FilterWritePre',
+--       \ 'FilterWritePost',
+--       \ 'BufAdd',
+--       \ 'BufCreate',
+--       \ 'BufDelete',
+--       \ 'BufWipeout',
+--       \ 'BufFilePre',
+--       \ 'BufFilePost',
+--       \ 'BufEnter',
+--       \ 'BufLeave',
+--       \ 'BufWinEnter',
+--       \ 'BufWinLeave',
+--       \ 'BufUnload',
+--       \ 'BufHidden',
+--       \ 'BufNew',
+--       \ 'SwapExists',
+--       \ 'FileType',
+--       \ 'Syntax',
+--       \ 'EncodingChanged',
+--       \ 'TermChanged',
+--       \ 'VimEnter',
+--       \ 'GUIEnter',
+--       \ 'GUIFailed',
+--       \ 'TermResponse',
+--       \ 'QuitPre',
+--       \ 'VimLeavePre',
+--       \ 'VimLeave',
+--       \ 'FileChangedShell',
+--       \ 'FileChangedShellPost',
+--       \ 'FileChangedRO',
+--       \ 'ShellCmdPost',
+--       \ 'ShellFilterPost',
+--       \ 'CmdUndefined',
+--       \ 'SpellFileMissing',
+--       \ 'SourcePre',
+--       \ 'VimResized',
+--       \ 'FocusGained',
+--       \ 'FocusLost',
+--       \ 'CursorHold',
+--       \ 'CursorHoldI',
+--       \ 'CursorMoved',
+--       \ 'CursorMovedI',
+--       \ 'WinEnter',
+--       \ 'WinLeave',
+--       \ 'TabEnter',
+--       \ 'TabLeave',
+--       \ 'CmdwinEnter',
+--       \ 'CmdwinLeave',
+--       \ 'InsertEnter',
+--       \ 'InsertChange',
+--       \ 'InsertLeave',
+--       \ 'InsertCharPre',
+--       \ 'TextChanged',
+--       \ 'TextChangedI',
+--       \ 'ColorScheme',
+--       \ 'RemoteReply',
+--       \ 'QuickFixCmdPre',
+--       \ 'QuickFixCmdPost',
+--       \ 'SessionLoadPost',
+--       \ 'MenuPopup',
+--       \ 'CompleteDone',
+--       \ 'User',
+--       \ ]
+--
+-- " }}}1 These are deliberately left out due to side effects
+-- " - SourceCmd
+-- " - FileAppendCmd
+-- " - FileWriteCmd
+-- " - BufWriteCmd
+-- " - FileReadCmd
+-- " - BufReadCmd
+-- " - FuncUndefined
+--
+-- let s:aulist = [
+--       \ 'BufNewFile',
+--       \ 'BufReadPre',
+--       \ 'BufRead',
+--       \ 'BufReadPost',
+--       \ 'FileReadPre',
+--       \ 'FileReadPost',
+--       \ 'FilterReadPre',
+--       \ 'FilterReadPost',
+--       \ 'StdinReadPre',
+--       \ 'StdinReadPost',
+--       \ 'BufWrite',
+--       \ 'BufWritePre',
+--       \ 'BufWritePost',
+--       \ 'FileWritePre',
+--       \ 'FileWritePost',
+--       \ 'FileAppendPre',
+--       \ 'FileAppendPost',
+--       \ 'FilterWritePre',
+--       \ 'FilterWritePost',
+--       \ 'BufAdd',
+--       \ 'BufCreate',
+--       \ 'BufDelete',
+--       \ 'BufWipeout',
+--       \ 'BufFilePre',
+--       \ 'BufFilePost',
+--       \ 'BufEnter',
+--       \ 'BufLeave',
+--       \ 'BufWinEnter',
+--       \ 'BufWinLeave',
+--       \ 'BufUnload',
+--       \ 'BufHidden',
+--       \ 'BufNew',
+--       \ 'SwapExists',
+--       \ 'FileType',
+--       \ 'Syntax',
+--       \ 'EncodingChanged',
+--       \ 'TermChanged',
+--       \ 'VimEnter',
+--       \ 'GUIEnter',
+--       \ 'GUIFailed',
+--       \ 'TermResponse',
+--       \ 'QuitPre',
+--       \ 'VimLeavePre',
+--       \ 'VimLeave',
+--       \ 'FileChangedShell',
+--       \ 'FileChangedShellPost',
+--       \ 'FileChangedRO',
+--       \ 'ShellCmdPost',
+--       \ 'ShellFilterPost',
+--       \ 'CmdUndefined',
+--       \ 'SpellFileMissing',
+--       \ 'SourcePre',
+--       \ 'VimResized',
+--       \ 'FocusGained',
+--       \ 'FocusLost',
+--       \ 'CursorHold',
+--       \ 'CursorHoldI',
+--       \ 'CursorMoved',
+--       \ 'CursorMovedI',
+--       \ 'WinEnter',
+--       \ 'WinLeave',
+--       \ 'TabEnter',
+--       \ 'TabLeave',
+--       \ 'CmdwinEnter',
+--       \ 'CmdwinLeave',
+--       \ 'InsertEnter',
+--       \ 'InsertChange',
+--       \ 'InsertLeave',
+--       \ 'InsertCharPre',
+--       \ 'TextChanged',
+--       \ 'TextChangedI',
+--       \ 'ColorScheme',
+--       \ 'RemoteReply',
+--       \ 'QuickFixCmdPre',
+--       \ 'QuickFixCmdPost',
+--       \ 'SessionLoadPost',
+--       \ 'MenuPopup',
+--       \ 'CompleteDone',
+--       \ 'User',
+--       \ ]
+--
+-- " }}}1
