@@ -15,7 +15,6 @@ local source_dir = require 'pocket.util.load_all'
 -- vim.opt.shellcmdflag = '-c'
 -- vim.opt.shellxquote = ""
 --
---
 
 local autocmd = source_dir 'pocket.core.autocmds'
 local recipes = source_dir 'pocket.core.recipes'
@@ -24,8 +23,7 @@ require 'pocket.core.keymaps'
 
 vim.cmd [[:set autoindent smartindent]]
 
--- do more stuff here that handles effects? (ev.emit->aucmd->bake->recipe->??????)
 return {
   autocmd = autocmd,
   recipes = recipes,
-};
+}

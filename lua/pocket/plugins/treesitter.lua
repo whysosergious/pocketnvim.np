@@ -62,11 +62,14 @@ return {
       parsers = {
         nu = {
           install_info = {
-            url = 'C:/!work/!active/wss/treesitter/parsers/nu', -- local path or git repo
-            files = { 'src/parser.c' }, -- note that some parsers also require src/scanner.c or src/scanner.cc
-            -- optional entries:
-            generate_requires_npm = false, -- if stand-alone parser without npm dependencies
-            requires_generate_from_grammar = false, -- if folder contains pre-generated src/parser.c
+            'LhKipp/nvim-nu',
+            dependancies = { 'ftplugin/nu.lua' },
+            require('nu').setup {
+              use_lsp_features = true, -- requires https://github.com/jose-elias-alvarez/null-ls.nvim
+              all_cmd_names = [[help commands | get name | str join "\n"]],
+            },
+            -- optional entres:
+            -- requires_generate_from_grammar = false, -- if folder contains pre-generated src/parser.c
           },
           filetype = 'nu', -- if filetype does not match the parser name
         },
