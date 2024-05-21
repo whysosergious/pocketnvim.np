@@ -18,6 +18,15 @@ vim.keymap.set('n', '<leader>rb', function()
   M.write(M.buf_nr)
 end, { desc = 'register out buf' })
 
+vim.api.nvim_create_autocmd('BufWritePost', {
+  group = vim.api.nvim_create_augroup('huh?what_memory?', { clear = true}),
+  pattern = 'out_buf.lua',
+  callback = function()
+   print('kkk')
+  end,
+})
+
+
 PV.out_buf = M
 
 return M

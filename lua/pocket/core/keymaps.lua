@@ -69,6 +69,12 @@ end, { desc = 'CopilotChat - open chat -> ctx: buffer' })
 -- 	builtin.grep_string({ search = vim.fn.input("Grep > ") });
 -- end)
 
+
+
+-- ai 
+
+    vim.keymap.set('n', '<leader>oac', '<cmd>NeoAIContextOpen<cr>', { desc = 'open gpt context chat' })
+
 local M = {}
 
 --- Register queued which-key mappings
