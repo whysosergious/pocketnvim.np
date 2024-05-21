@@ -1,12 +1,12 @@
 -- Global objects
 globals = {
-  "pocketnvim",
-  "pocketnvim_installation",
-  "nvim",
-  "vim",
-  "bit",
-  "autogroup",
-  "ui"
+  'PV',
+  'pocketnvim_installation',
+  'nvim',
+  'vim',
+  'bit',
+  'autogroup',
+  'ui',
 }
 
 -- Rerun tests only if their modification time changed
@@ -16,6 +16,6 @@ cache = true
 self = false
 
 ignore = {
-  "631", -- max_line_length
-  "212/_.*", -- unused argument, for vars with "_" prefix
+  '631', -- max_line_length
+  '212/_.*', -- unused argument, for vars with "_" prefix
 }

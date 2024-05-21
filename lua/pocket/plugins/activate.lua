@@ -1,8 +1,10 @@
 return {
   'roobert/activate.nvim',
+  lazy = true,
   keys = {
     {
-      '<leader>P',
+      '<leader>op',
+
       '<CMD>lua require("activate").list_plugins()<CR>',
       desc = 'Plugins',
     },

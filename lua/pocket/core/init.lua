@@ -16,14 +16,13 @@ local source_dir = require 'pocket.util.load_all'
 -- vim.opt.shellxquote = ""
 --
 
-local autocmd = source_dir 'pocket.core.autocmds'
 local recipes = source_dir 'pocket.core.recipes'
+require 'pocket.core.cmd'
 require 'pocket.core.options'
 require 'pocket.core.keymaps'
 
 vim.cmd [[:set autoindent smartindent]]
 
 return {
-  autocmd = autocmd,
   recipes = recipes,
 }

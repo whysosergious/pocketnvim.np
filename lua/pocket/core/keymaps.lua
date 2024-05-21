@@ -21,10 +21,11 @@ vim.g.mapleader = ' '
 local keymap = vim.keymap -- for conciseness
 
 -- just like vs-code
-keymap.set('n', '<leader>b', vim.cmd.Ex, { desc = 'Ex command (fs)' })
+-- keymap.set('n', '<leader>b', vim.cmd.Ex, { desc = 'Ex command (fs)' })
 
 --
 keymap.set('n', '<leader>nh', ':nohl<CR>', { desc = 'Clear search highlights' })
+keymap.set('n', '<leader>nb', ':enew<CR>', { desc = 'New buf' })
 
 -- window management
 keymap.set('n', '<leader>sv', '<C-w>v', { desc = 'Split window vertically' }) -- split window vertically
@@ -40,30 +41,22 @@ keymap.set('n', '<leader>tf', '<cmd>tabnew %<CR>', { desc = 'Open current buffer
 
 keymap.set('n', '§', '$')
 keymap.set('v', '§', '$')
-keymap.set('n', '<A-h>', 'H')
-keymap.set('n', '<A-j>', '<C-d>')
-keymap.set('n', '<A-k>', '<C-u>')
-keymap.set('n', '<A-l>', 'L')
-keymap.set('n', '<A-i>', 'M')
-keymap.set('v', '<c-v>', 'c-v>')
-keymap.set('n', '<A-v>', '<C-v>')
-keymap.set('v', '<A-v>', '<C-v>')
 
-keymap.set('n', '<leader>it', vim.cmd.InspectTree, { desc = 'Tree-Sitter - open syntax tree' })
+keymap.set('n', '<leader>os', vim.cmd.InspectTree, { desc = 'Tree-Sitter - open syntax tree' })
 
 -- ## undotree
-keymap.set('n', '<leader>lc', vim.cmd.UndotreeToggle)
+keymap.set('n', '<leader>ou', vim.cmd.UndotreeToggle, { desc = 'UndoTree open/close' })
 keymap.set('n', '<leader>oc', function()
   require('CopilotChat').open {
     selection = require('CopilotChat.select').buffer,
   }
 end, { desc = 'CopilotChat - open chat -> ctx: buffer' })
-keymap.set('n', '<leader>ccq', function()
-  local input = vim.fn.input 'Quick Chat: '
-  if input ~= '' then
-    require('CopilotChat').ask(input, { selection = require('CopilotChat.select').buffer })
-  end
-end, { desc = 'CopilotChat - Quick chat' })
+-- keymap.set('n', '<leader>ccq', function()
+--   local input = vim.fn.input 'Quick Chat: '
+--   if input ~= '' then
+--     require('CopilotChat').ask(input, { selection = require('CopilotChat.select').buffer })
+--   end
+-- end, { desc = 'CopilotChat - Quick chat' })
 
 -- -- ## telescope
 -- local builtin = require('telescope.builtin')
@@ -156,24 +149,9 @@ end
 
 local maps = M.empty_map_table()
 
--- Navigate tabs
-maps.n['öt'] = {
-  function()
-    vim.cmd.tabnext()
-  end,
-  desc = 'Next tab',
-}
-maps.n['ät'] = {
-  function()
-    vim.cmd.tabprevious()
-  end,
-  desc = 'Previous tab',
-}
-
 -- -- -- ## git : vim-fugitive
 -- -- keymap.set('n', '<leader>gs', vim.cmd.Git)
 
--- Normal --
 -- Standard Operations
 maps.n['j'] = { "v:count == 0 ? 'gj' : 'j'", expr = true, desc = 'Move cursor down' }
 maps.n['k'] = { "v:count == 0 ? 'gk' : 'k'", expr = true, desc = 'Move cursor up' }
@@ -191,8 +169,8 @@ maps.n['\\'] = { '<cmd>split<cr>', desc = 'Horizontal Split' }
 
 -- Package Manager
 if is_available 'mason.nvim' then
-  maps.n['<leader>pm'] = { '<cmd>Mason<cr>', desc = 'Mason Installer' }
-  maps.n['<leader>pM'] = { '<cmd>MasonUpdateAll<cr>', desc = 'Mason Update' }
+  maps.n['<leader>om'] = { '<cmd>Mason<cr>', desc = 'Mason Installer' }
+  -- maps.n['<leader>pM'] = { '<cmd>MasonUpdateAll<cr>', desc = 'Mason Update' }
 end
 
 -- Stay in indent mode
@@ -200,18 +178,18 @@ maps.v['<S-Tab>'] = { '<gv', desc = 'Unindent line' }
 maps.v['<Tab>'] = { '>gv', desc = 'Indent line' }
 
 -- Comment
-if is_available 'Comment.nvim' then
-  maps.n['<leader>/'] = {
-    function()
-      require('Comment.api').toggle.linewise.count(vim.v.count > 0 and vim.v.count or 1)
-    end,
-    desc = 'Toggle comment line',
-  }
-  maps.v['<leader>/'] = {
-    "<esc><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<cr>",
-    desc = 'Toggle comment for selection',
-  }
-end
+-- if is_available 'Comment.nvim' then
+--   maps.n['<leader>/'] = {
+--     function()
+--       require('Comment.api').toggle.linewise.count(vim.v.count > 0 and vim.v.count or 1)
+--     end,
+--     desc = 'Toggle comment line',
+--   }
+--   maps.v['<leader>/'] = {
+--     "<esc><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<cr>",
+--     desc = 'Toggle comment for selection',
+--   }
+-- end
 
 -- -- maps.n["<leader>ud"] = { ui.toggle_diagnostics, desc = "Toggle diagnostics" }
 -- -- maps.n["<leader>ug"] = { ui.toggle_signcolumn, desc = "Toggle signcolumn" }
@@ -229,10 +207,12 @@ end
 -- -- maps.n["<leader>uy"] = { ui.toggle_syntax, desc = "Toggle syntax highlighting (buffer)" }
 -- -- maps.n["<leader>uh"] = { ui.toggle_foldcolumn, desc = "Toggle foldcolumn" }
 
-M.set_mappings(maps)
-
 -- more usefull maps from old config
 -- setting only 'yank' to use the '+' register .. if 'p' is crowded, use "+p
+vim.keymap.set('n', '<C-p>', '"+p', { desc = 'Paste below from u+ register' })
+vim.keymap.set('n', '<M-C-P>', '"+P', { desc = 'Paste above from u+ register' })
+vim.keymap.set('v', '<C-p>', '"+p', { desc = 'Paste below from u+ register' })
+vim.keymap.set('v', '<M-C-P>', '"+P', { desc = 'Paste above from u+ register' })
 vim.cmd [[:nnoremap <expr> y (v:register ==# '"' ? '"+' : '') . 'y']]
 vim.cmd [[:nnoremap <expr> yy (v:register ==# '"' ? '"+' : '') . 'yy']]
 vim.cmd [[:nnoremap <expr> Y (v:register ==# '"' ? '"+' : '') . 'Y']]
@@ -320,3 +300,5 @@ maps.t['<C-h>'] = { '<cmd>wincmd h<cr>', desc = 'Terminal left window navigation
 maps.t['<C-j>'] = { '<cmd>wincmd j<cr>', desc = 'Terminal down window navigation' }
 maps.t['<C-k>'] = { '<cmd>wincmd k<cr>', desc = 'Terminal up window navigation' }
 maps.t['<C-l>'] = { '<cmd>wincmd l<cr>', desc = 'Terminal right window navigation' }
+
+M.set_mappings(maps)
