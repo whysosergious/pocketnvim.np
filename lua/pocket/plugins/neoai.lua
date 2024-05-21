@@ -25,9 +25,9 @@ return {
       require('neoai').setup {
         -- Below are the default options, feel free to override what you would like changed
         ui = {
-          output_popup_text = 'NeoAI',
-          input_popup_text = 'Prompt',
-          width = 30, -- As percentage eg. 30%
+          output_popup_text = 'Friday',
+          input_popup_text = '- -- -',
+          width = 36, -- As percentage eg. 30%
           output_popup_height = 80, -- As percentage eg. 80%
           submit = '<Enter>', -- Key binding to submit the prompt
         },
@@ -124,14 +124,14 @@ return {
         },
       },
     }
-    context_prompt = function(context)
-      return "this code is what we're dealing with:\n\n" .. context
-    end
+    -- context_prompt = function(context)
+    --   return "this code is what we're dealing with:\n\n" .. context
+    -- end
 
-    vim.keymap.set('n', '<leader>ogc', '<cmd>NeoAIContextOpen<cr>', { desc = 'open gpt context chat' })
-
-    vim.keymap.set('n', '<M-Enter>', function()
-      require('neoai').submit()
-    end, { desc = 'send message' })
+    -- vim.keymap.set('n', '<leader>ogc', '<cmd>NeoAIContextOpen<cr>', { desc = 'open gpt context chat' })
+    --
+    -- vim.keymap.set('n', '<M-Enter>', function()
+    --   require('neoai').submit()
+    -- end, { desc = 'send message' })
   end,
 }
