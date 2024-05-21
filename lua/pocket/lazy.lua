@@ -64,6 +64,7 @@ require('lazy').setup({
         --   fg = border,
         -- }
         -- hl.TelescopePromptTitle = {
+
         --   bg = prompt,
         --   fg = prompt,
         -- }
