@@ -5,7 +5,7 @@ return {
     lazy = false,
     dependencies = {
       'nvim-lua/plenary.nvim',
-      { 'nvim-telescope/telescope-fzf-native.nvim', build = 'zig' },
+      { 'nvim-telescope/telescope-fzf-native.nvim' },
       'nvim-tree/nvim-web-devicons',
       'folke/todo-comments.nvim',
     },

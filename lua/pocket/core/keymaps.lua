@@ -23,6 +23,9 @@ local keymap = vim.keymap -- for conciseness
 -- just like vs-code
 -- keymap.set('n', '<leader>b', vim.cmd.Ex, { desc = 'Ex command (fs)' })
 
+-- beff
+vim.api.nvim_set_keymap('n', '<leader>bb', ':ls<CR>:b<Space>', { noremap = true, silent = true })
+
 --
 keymap.set('n', '<leader>nh', ':nohl<CR>', { desc = 'Clear search highlights' })
 keymap.set('n', '<leader>nb', ':enew<CR>', { desc = 'New buf' })
@@ -46,7 +49,7 @@ keymap.set('n', '<leader>os', vim.cmd.InspectTree, { desc = 'Tree-Sitter - open 
 
 -- ## undotree
 keymap.set('n', '<leader>ou', vim.cmd.UndotreeToggle, { desc = 'UndoTree open/close' })
-keymap.set('n', '<leader>oc', function()
+keymap.set('n', '<leader>oap', function()
   require('CopilotChat').open {
     selection = require('CopilotChat.select').buffer,
   }
@@ -285,17 +288,17 @@ else
   maps.n['<C-Left>'] = { '<cmd>vertical resize -2<CR>', desc = 'Resize split left' }
   maps.n['<C-Right>'] = { '<cmd>vertical resize +2<CR>', desc = 'Resize split right' }
 end
-
--- SymbolsOutline
-if is_available 'aerial.nvim' then
-  maps.n['<leader>l'] = sections.l
-  maps.n['<leader>lS'] = {
-    function()
-      require('aerial').toggle()
-    end,
-    desc = 'Symbols outline',
-  }
-end
+--
+-- -- SymbolsOutline
+-- if is_available 'aerial.nvim' then
+--   maps.n['<leader>l'] = sections.l
+--   maps.n['<leader>lS'] = {
+--     function()
+--       require('aerial').toggle()
+--     end,
+--     desc = 'Symbols outline',
+--   }
+-- end
 
 -- Stay in indent mode
 maps.v['<S-Tab>'] = { '<gv', desc = 'Unindent line' }
