@@ -1,31 +1,31 @@
 return {
   {
-    'nvim-telescope/telescope.nvim',
-    branch = 'master',
+    "nvim-telescope/telescope.nvim",
+    branch = "master",
     lazy = false,
     dependencies = {
-      'nvim-lua/plenary.nvim',
-      { 'nvim-telescope/telescope-fzf-native.nvim' },
-      'nvim-tree/nvim-web-devicons',
-      'folke/todo-comments.nvim',
+      "nvim-lua/plenary.nvim",
+      { "nvim-telescope/telescope-fzf-native.nvim" },
+      "nvim-tree/nvim-web-devicons",
+      "folke/todo-comments.nvim",
     },
     config = function()
-      local telescope = require 'telescope'
-      local actions = require 'telescope.actions'
-      local transform_mod = require('telescope.actions.mt').transform_mod
+      local telescope = require "telescope"
+      local actions = require "telescope.actions"
+      local transform_mod = require("telescope.actions.mt").transform_mod
 
-      local trouble = require 'trouble'
-      local trouble_telescope = require 'trouble.providers.telescope'
-      local pickers = require 'telescope.pickers'
-      local builtin = require 'telescope.builtin'
-      local themes = require 'telescope.themes'
-      local finders = require 'telescope.finders'
-      local sorters = require 'telescope.sorters'
+      local trouble = require "trouble"
+      local trouble_telescope = require "trouble.providers.telescope"
+      local pickers = require "telescope.pickers"
+      local builtin = require "telescope.builtin"
+      local themes = require "telescope.themes"
+      local finders = require "telescope.finders"
+      local sorters = require "telescope.sorters"
 
       -- or create your custom action
       local custom_actions = transform_mod {
         open_trouble_qflist = function(prompt_bufnr)
-          trouble.toggle 'quickfix'
+          trouble.toggle "quickfix"
         end,
       }
 
@@ -74,22 +74,22 @@ return {
 
       local cp = function()
         builtin.live_grep(themes.get_dropdown {
-          prompt_title = 'cp',
-          results_title = 'cp res',
-          preview_title = 'Command Preview',
+          prompt_title = "cp",
+          results_title = "cp res",
+          preview_title = "Command Preview",
           previewer = false,
-          prompt_prefix = '› ',
+          prompt_prefix = "› ",
           hidden = true,
 
           -- results_height = 10,
           -- max_results = 16,
-          top = '20px',
+          top = "20px",
           -- strategy = 'top',
-          orientation = 'horizontal',
+          orientation = "horizontal",
           -- hidden = true,
           --
           top_offset = 0.2,
-          prompt_position = 'top',
+          prompt_position = "top",
           -- layout_config = {
           --   width = 0.6,
           --   height = 0.6,
@@ -100,13 +100,13 @@ return {
           --   },
           -- },
           finder = finders.new_table {
-            'aaa',
-            'bbbb',
-            'ldbclkdnlck',
+            "aaa",
+            "bbbb",
+            "ldbclkdnlck",
             -- builtin.commands(),
             -- builtin.vim_options(),
           },
-          finder_command = { 'rg' },
+          finder_command = { "rg" },
           sorter = sorters.get_generic_fuzzy_sorter(),
 
           --
@@ -145,31 +145,31 @@ return {
       -- }
       --
       local o = {
-        prompt_title = 'cp',
-        results_title = 'cp res',
-        preview_title = 'Command Preview',
+        prompt_title = "cp",
+        results_title = "cp res",
+        preview_title = "Command Preview",
         previewer = false,
-        prompt_prefix = '› ',
+        prompt_prefix = "› ",
         hidden = true,
-        sorting_strategy = 'ascending',
-        layout_strategy = 'horizontal',
+        sorting_strategy = "ascending",
+        layout_strategy = "horizontal",
         layout_config = {
           width = 0.6,
           height = 0.6,
-          prompt_position = 'top',
+          prompt_position = "top",
           -- cursor = {
           --   height = 0.6,
           --   width = 0.6,
           -- },
         },
         finder = finders.new_table {
-          'aaa',
-          'bbbb',
-          'ldbclkdnlck',
+          "aaa",
+          "bbbb",
+          "ldbclkdnlck",
           -- builtin.commands(),
           -- builtin.vim_options(),
         },
-        finder_command = { 'rg' },
+        finder_command = { "rg" },
         sorter = sorters.get_generic_fuzzy_sorter(),
         -- attach_mappings = function(prompt_bufnr, map)
         --   map('i', '<C-t>', function()
@@ -192,12 +192,12 @@ return {
         pickers = {
           cmd_prompt = {},
           find_files = {
-            theme = 'dropdown',
+            theme = "dropdown",
             hidden = true,
           },
 
           live_grep = {
-            theme = 'dropdown',
+            theme = "dropdown",
 
             hidden = true,
           },
@@ -207,13 +207,13 @@ return {
           },
         },
         defaults = {
-          path_display = { 'smart' },
+          path_display = { "smart" },
           mappings = {
             i = {
-              ['<C-k>'] = actions.move_selection_previous, -- move to prev result
-              ['<C-j>'] = actions.move_selection_next, -- move to next result
-              ['<C-q>'] = actions.send_selected_to_qflist + custom_actions.open_trouble_qflist,
-              ['<C-t>'] = trouble_telescope.smart_open_with_trouble,
+              ["<C-k>"] = actions.move_selection_previous, -- move to prev result
+              ["<C-j>"] = actions.move_selection_next, -- move to next result
+              ["<C-q>"] = actions.send_selected_to_qflist + custom_actions.open_trouble_qflist,
+              ["<C-t>"] = require("trouble.sources.telescope").open,
             },
           },
         },
@@ -243,33 +243,33 @@ return {
       -- set keymaps
       local keymap = vim.keymap -- for conciseness
 
-      keymap.set('n', '<leader>ff', '<cmd>Telescope find_files<cr>', { desc = 'Fuzzy files in cwd' })
-      keymap.set('n', '<leader>fr', '<cmd>Telescope oldfiles<cr>', { desc = 'Fuzzy recent files' })
-      keymap.set('n', '<leader>fs', '<cmd>Telescope live_grep<cr>', { desc = 'Grep string in cwd' })
-      keymap.set('n', '<leader>fc', '<cmd>Telescope grep_string<cr>', { desc = 'Grep string under cursor in cwd' })
-      keymap.set('n', '<leader>fj', '<cmd>Telescope jumplist<cr>', { desc = 'Search in jumplist' })
+      keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "Fuzzy files in cwd" })
+      keymap.set("n", "<leader>fr", "<cmd>Telescope oldfiles<cr>", { desc = "Fuzzy recent files" })
+      keymap.set("n", "<leader>fs", "<cmd>Telescope live_grep<cr>", { desc = "Grep string in cwd" })
+      keymap.set("n", "<leader>fc", "<cmd>Telescope grep_string<cr>", { desc = "Grep string under cursor in cwd" })
+      keymap.set("n", "<leader>fj", "<cmd>Telescope jumplist<cr>", { desc = "Search in jumplist" })
       -- uppercase for less common
-      keymap.set('n', '<leader>fK', '<cmd>Telescope keymaps<cr>', { desc = 'Search in keymaps' })
-      keymap.set('n', '<leader>fS', '<cmd>Telescope treesitter<cr>', { desc = 'Search with treesitter' })
-      keymap.set('n', '<leader>fO', '<cmd>Telescope vim_options<cr>', { desc = 'Search in vim options' })
-      keymap.set('n', '<leader>fC', '<cmd>Telescope commands<cr>', { desc = 'Search in commands' })
-      keymap.set('n', '<leader>fA', '<cmd>Telescope autocommands<cr>', { desc = 'Search in autocommands' })
-      keymap.set('n', '<leader>fB', '<cmd>Telescope builtin<cr>', { desc = 'Search in builtin' })
-      keymap.set('n', '<leader>fP', '<cmd>Telescope pickers<cr>', { desc = 'Search pickers' })
-      keymap.set('n', '<leader>fT', '<cmd>TodoTelescope<cr>', { desc = 'Search todos' })
+      keymap.set("n", "<leader>fK", "<cmd>Telescope keymaps<cr>", { desc = "Search in keymaps" })
+      keymap.set("n", "<leader>fS", "<cmd>Telescope treesitter<cr>", { desc = "Search with treesitter" })
+      keymap.set("n", "<leader>fO", "<cmd>Telescope vim_options<cr>", { desc = "Search in vim options" })
+      keymap.set("n", "<leader>fC", "<cmd>Telescope commands<cr>", { desc = "Search in commands" })
+      keymap.set("n", "<leader>fA", "<cmd>Telescope autocommands<cr>", { desc = "Search in autocommands" })
+      keymap.set("n", "<leader>fB", "<cmd>Telescope builtin<cr>", { desc = "Search in builtin" })
+      keymap.set("n", "<leader>fP", "<cmd>Telescope pickers<cr>", { desc = "Search pickers" })
+      keymap.set("n", "<leader>fT", "<cmd>TodoTelescope<cr>", { desc = "Search todos" })
 
       --persisted thing    -- custom pickers
-      keymap.set('n', '<c-\\>', function()
-        require('telescope.builtin').cp()
-      end, { desc = 'Builtin & custom cmds/opts' })
+      keymap.set("n", "<c-\\>", function()
+        require("telescope.builtin").cp()
+      end, { desc = "Builtin & custom cmds/opts" })
 
-      require('telescope').load_extension 'persisted'
+      require("telescope").load_extension "persisted"
 
-      vim.keymap.set('n', '<leader>fp', '<cmd>Telescope persisted<cr>', { desc = 'Persisted thing' })
+      vim.keymap.set("n", "<leader>fp", "<cmd>Telescope persisted<cr>", { desc = "Persisted thing" })
     end,
   },
   {
-    'olimorris/persisted.nvim',
+    "olimorris/persisted.nvim",
     lazy = false,
 
     config = true,

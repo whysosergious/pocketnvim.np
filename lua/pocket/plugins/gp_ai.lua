@@ -1,4 +1,73 @@
-return {}
+return {
+  'Robitx/gp.nvim',
+  config = function()
+    -- Define the agent configuration
+    local agents = {
+      {
+        name = 'Friday',
+        chat = true,
+        command = false,
+        model = { model = 'gpt-4o', temperature = 0.1, top_p = 1 },
+        system_prompt = 'you are a skilled programmer. Proficient in recursive logic and reactive structures. your task is to make the given code and or specification, to behave correctly and do what the user expects from it. you are mainly workin with typescript, deno, +web, rust, nushell as the main shell, wezterm terminal and nvim.\n\n',
+      },
+    }
+
+    -- Define the configuration
+    local config = {
+      agents = agents,
+      chat_dir = vim.fn.stdpath('data'):gsub('/$', '') .. '/gp/chats',
+      chat_user_prefix = '->',
+      chat_assistant_prefix = { ' - ', '[{{agent}}]' },
+      chat_confirm_delete = true,
+      chat_free_cursor = false,
+      style_chat_finder_border = 'shadow',
+      style_chat_finder_margin_bottom = 8,
+      style_chat_finder_margin_left = 1,
+      style_chat_finder_margin_right = 2,
+      style_chat_finder_margin_top = 2,
+      style_chat_finder_preview_ratio = 0.36,
+      style_popup_border = 'rounded',
+      style_popup_margin_bottom = 8,
+      style_popup_margin_left = 1,
+      style_popup_margin_right = 2,
+      style_popup_margin_top = 2,
+      style_popup_max_width = 160,
+      command_prompt_prefix_template = '{{agent}}',
+      command_auto_select_response = true,
+      template_selection = 'I have the following from {{filename}}:\n\n```{{filetype}}\n{{file}}\n```\n\n{{command}}',
+      template_rewrite = 'I have the following from {{filename}}:\n\n```{{filetype}}\n{{selection}}\n```\n\n{{command}}\n\nRespond exclusively with the snippet that should replace the selection above.',
+      template_append = 'I have the following from {{filename}}:\n\n```{{filetype}}\n{{selection}}\n```\n\n{{command}}\n\nRespond exclusively with the snippet that should be appended after the selection above.',
+      template_prepend = 'I have the following from {{filename}}:\n\n```{{filetype}}\n{{selection}}\n```\n\n{{command}}\n\nRespond exclusively with the snippet that should be prepended before the selection above.',
+      template_command = '{{command}}',
+    }
+
+    -- Function to append the focused buffer content to the system prompt
+    local append_focused_buffer = function()
+      local prompt = agents[1].system_prompt
+        .. '\n\nFocused Content:\n'
+        .. table.concat(vim.api.nvim_buf_get_lines(vim.api.nvim_get_current_buf(), 0, -1, false), '\n')
+
+      return prompt
+    end
+
+    -- Define a command to open a new chat with the current buffer as context
+    local BufferChatNew = function()
+      local gp = require('gp')
+      agents[1].system_prompt = append_focused_buffer()
+      vim.api.nvim_command("%" .. gp.config.cmd_prefix .. "ChatNew")
+    end
+
+    -- Set up the plugin with the configuration
+    local gp = require('gp')
+    gp.BufferChatNew = BufferChatNew
+
+    -- Define key mappings
+    vim.api.nvim_set_keymap('n', '<leader>cn', ':lua require("gp").BufferChatNew()<CR>', { noremap = true, silent = true })
+
+    gp.setup(config)
+  end
+
+}
 -- -- local M = {}
 -- --
 -- -- local agents = {

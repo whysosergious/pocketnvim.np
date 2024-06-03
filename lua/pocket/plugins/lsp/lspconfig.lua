@@ -77,8 +77,6 @@ return {
       local hl = 'DiagnosticSign' .. type
       vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = '' })
     end
-stylua --glob '**/*.luau' -- src # format all files in src matching **/*.luau
-stylua -g '*.lua' -g '!*.spec.lua' -- . # format all Lua files except test files ending with `.spec.lua`
     -- mason_lspconfig.setup_handlers {
     --   -- default handler for installed servers
     --   function(server_name)
