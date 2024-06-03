@@ -13,6 +13,17 @@ vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
   { import = 'pocket.plugins' },
+  { 'folke/tokyonight.nvim', 
+    lazy = false,
+    priority = 1000,
+
+    config = function()
+      require('tokyonight').setup({
+        style = 'moon',
+      })
+      vim.cmd [[colorscheme tokyonight]]
+    end
+  }
   -- { import = 'pocket.plugins.lsp' },
 }, {
   checker = {

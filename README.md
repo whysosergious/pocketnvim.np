@@ -1,2 +1,1 @@
-# pnv
-iter3 of pocketnvim
+try to dynamically source and parse plugins from repo's
