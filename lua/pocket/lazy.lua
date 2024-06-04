@@ -14,6 +14,7 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
   { import = "pocket.plugins" },
   { import = "pocket.plugins.lsp" },
+  { import = "pocket.plugins.lsp.servers" },
   {
     "folke/tokyonight.nvim",
     lazy = false,
