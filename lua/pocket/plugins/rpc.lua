@@ -19,13 +19,13 @@ local function start_deno_server()
         end
       end
     end,
-    on_stderr = function(_, data, _)
-      if data then
-        for _, line in ipairs(data) do
-          vim.api.nvim_err_writeln(line)
-        end
-      end
-    end,
+    -- on_stderr = function(_, data, _)
+    --   if data then
+    --     for _, line in ipairs(data) do
+    --       vim.api.nvim_err_writeln(line)
+    --     end
+    --   end
+    -- end,
     on_exit = function(_, code, _)
       print("Deno server exited with code", code)
     end,

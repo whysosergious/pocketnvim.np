@@ -45,7 +45,6 @@ return {
         "vim",
         "gitignore",
         "query",
-        "nu",
       },
       incremental_selection = {
         enable = true,

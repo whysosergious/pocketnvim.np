@@ -1,5 +1,6 @@
 return {
   "LhKipp/nvim-nu",
+  build = ":TSInstall nu",
   config = function()
     require("nu").setup {
       use_lsp_features = true, -- requires https://github.com/jose-elias-alvarez/null-ls.nvim

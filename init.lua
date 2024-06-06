@@ -1,8 +1,17 @@
 PV = {
   group = os.getenv "PV_GROUP",
   rnt = os.getenv "PV_RNT",
+  plugmaps = {
+    state = {
+      -- name = active-state
+    },
+  },
 }
 
+vim.g.leader = {
+
+  mood = "fine",
+}
 --- ##########
 --- ########## -- SESSION TODO'S
 --- ##########

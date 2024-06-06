@@ -1,18 +1,16 @@
 return {
-  'stevearc/oil.nvim',
+  "stevearc/oil.nvim",
   opts = {},
-  dependencies = { 
+  dependencies = {
     "nvim-tree/nvim-web-devicons",
-    config = function ()
+    config = function()
+      vim.keymap.set("n", "<leader>o", require("oil").close, { desc = "close oil" })
+      vim.keymap.set("n", "-", require("oil").open, { desc = "fs parent dir (oil)" })
 
+      vim.keymap.set("n", "<leader>of", require("oil").open_float, {
 
-    vim.keymap.set('n', '-', require('oil').open, { desc = 'fs parent dir (oil)' })
-      
-      vim.keymap.set("n", "<leader>of", require('oil').open_float, { 
-
-
-
-        desc = "oil" })
+        desc = "oil",
+      })
 
       require("oil").setup {
         default_file_explorer = true,
@@ -59,28 +57,28 @@ return {
           ["gx"] = false,
           ["g."] = false,
           ["g\\"] = false,
-          ['g?'] = 'actions.show_help',
-          ['<CR>'] = 'actions.select',
-          ['sr'] = 'actions.select_vsplit',
-          ['sd'] = 'actions.select_split',
-          ['<C-t>'] = 'actions.select_tab',
-          ['<C-P>'] = 'actions.preview',
-          ['<C-c>'] = 'actions.close',
-          ['<C-r>'] = 'actions.refresh',
-          ['-'] = 'actions.parent',
-          ['_'] = 'actions.open_cwd',
-          ['gx'] = 'actions.open_external',
-          ['g.'] = 'actions.toggle_hidden',
-          ['gcc'] = 'actions.cd',
-          ['gct'] = 'actions.tcd',
-          ['gs'] = 'actions.change_sort',
-          ['gct'] = 'actions.toggle_trash',
+          ["g?"] = "actions.show_help",
+          ["<CR>"] = "actions.select",
+          ["sr"] = "actions.select_vsplit",
+          ["sd"] = "actions.select_split",
+          ["<C-t>"] = "actions.select_tab",
+          ["<C-P>"] = "actions.preview",
+          ["<C-c>"] = "actions.close",
+          ["<C-r>"] = "actions.refresh",
+          ["-"] = "actions.parent",
+          ["_"] = "actions.open_cwd",
+          ["gx"] = "actions.open_external",
+          ["g."] = "actions.toggle_hidden",
+          ["gcc"] = "actions.cd",
+          ["gct"] = "actions.tcd",
+          ["gs"] = "actions.change_sort",
+          ["gtt"] = "actions.toggle_trash",
         },
         use_default_keymaps = true,
         view_options = {
           show_hidden = true,
           is_hidden_file = function(name, bufnr)
-            return vim.startswith(name, '.')
+            return vim.startswith(name, ".") and not vim.startswith(name, "..")
           end,
         },
         git = {
@@ -94,7 +92,7 @@ return {
             return false
           end,
         },
-        float = { 
+        float = {
           padding = 0,
           max_width = 40,
           min_width = { 30, 0.3 },
@@ -114,7 +112,7 @@ return {
           max_width = 0.5,
           min_width = { 40, 0.4 },
           min_height = { 5, 0.1 },
-          border = 'rounded',
+          border = "rounded",
           win_options = {
             winblend = 0,
           },
@@ -125,16 +123,16 @@ return {
           min_width = { 40, 0.4 },
           max_height = { 10, 0.9 },
           min_height = { 5, 0.1 },
-          border = 'rounded',
+          border = "rounded",
           win_options = {
             winblend = 0,
           },
         },
         ssh = {
-          border = 'rounded',
+          border = "rounded",
         },
         keymaps_help = {
-          border = 'rounded',
+          border = "rounded",
         },
       }
     end,
