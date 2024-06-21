@@ -39,6 +39,7 @@ return {
 
     mason_tool_installer.setup {
       ensure_installed = {
+        "oxlint", -- swc in rust
         "htmlhint", -- html linter
         "ts-standard", -- typescript linter
         "deno", -- deno runtime
@@ -53,8 +54,6 @@ return {
         -- "black", -- python formatter
         -- "pylint",
         -- "oxlint", -- javascript formatter
-        "eslint",
-        "eslint_d",
       },
     }
   end,

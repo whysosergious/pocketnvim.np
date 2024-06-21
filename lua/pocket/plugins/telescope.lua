@@ -1,16 +1,15 @@
 return {
-  { 'junegunn/fzf', { build = fzf#install() },
+  { "junegunn/fzf" },
   {
     "nvim-telescope/telescope.nvim",
     branch = "master",
     lazy = false,
     dependencies = {
       "nvim-lua/plenary.nvim",
-        'junegunn/fzf',
-      "nvim-telescope/telescope-fzf-native.nvim" ,
+      "junegunn/fzf",
+      "nvim-telescope/telescope-fzf-native.nvim",
       "nvim-tree/nvim-web-devicons",
       "folke/todo-comments.nvim",
-        
     },
     config = function()
       local telescope = require "telescope"

@@ -11,6 +11,7 @@ return {
     -- 'nushell/tree-sitter-nu',
   },
   config = function()
+    require("nvim-treesitter.install").prefer_git = true
     -- import nvim-treesitter plugin
     local treesitter = require "nvim-treesitter.configs"
 
@@ -49,10 +50,10 @@ return {
       incremental_selection = {
         enable = true,
         keymaps = {
-          init_selection = "<C-space>",
-          node_incremental = "<C-.>",
-          scope_incremental = "<C-space>",
-          node_decremental = "<C-,>",
+          init_selection = "<S-ä>",
+          node_incremental = "<S-ä>",
+          node_decremental = "<S-_>",
+          scope_incremental = "<S-ö>",
         },
       },
 
@@ -70,23 +71,41 @@ return {
         zindex = 20, -- The Z-index of the context window
         on_attach = nil, -- (fun(buf: integer): boolean) return false to disable attaching
       },
-      -- {
-      --   parsers = {
-      --     nu = {
-      --       install_info = {
-      --         'LhKipp/nvim-nu',
-      --         -- dependancies = { 'ftplugin/nu.lua' },
-      --         require('nu').setup {
-      --           use_lsp_features = true, -- requires https://github.com/jose-elias-alvarez/null-ls.nvim
-      --           all_cmd_names = [[help commands | get name | str join "\n"]],
-      --         },
-      --         -- optional entres:
-      --         -- requires_generate_from_grammar = false, -- if folder contains pre-generated src/parser.c
-      --       },
-      --       filetype = 'nu', -- if filetype does not match the parser name
-      --     },
-      --   },
-      -- },
+      {
+        parsers = {
+          np = {
+            install_info = {
+              url = "./treesitter/custom_parsers/nushell/tree-sitter-nu",
+              dependancies = { "ftplugin/nu.lua", "jose-elias-alvarez/null-ls.nvim", "LhKipp/nvim-nu" },
+              require("nu").setup {
+                use_lsp_features = true, -- requires https://github.com/jose-elias-alvarez/null-ls.nvim
+                all_cmd_names = [[help commands | get name | str join "\n"]],
+              },
+              -- optional entres:
+              -- requires_generate_from_grammar = false, -- if folder contains pre-generated src/parser.c
+            },
+            filetype = "np", -- if filetype does not match the parser name
+          },
+        },
+      },
+
+      {
+        parsers = {
+          nu = {
+            install_info = {
+              url = "./treesitter/custom_parsers/nushell/tree-sitter-nu",
+              dependancies = { "ftplugin/nu.lua", "jose-elias-alvarez/null-ls.nvim", "LhKipp/nvim-nu" },
+              require("nu").setup {
+                use_lsp_features = true, -- requires https://github.com/jose-elias-alvarez/null-ls.nvim
+                all_cmd_names = [[help commands | get name | str join "\n"]],
+              },
+              -- optional entres:
+              -- requires_generate_from_grammar = false, -- if folder contains pre-generated src/parser.c
+            },
+            filetype = "nu", -- if filetype does not match the parser name
+          },
+        },
+      },
     }
   end,
 }

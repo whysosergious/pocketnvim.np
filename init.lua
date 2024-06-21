@@ -7,11 +7,12 @@ PV = {
     },
   },
 }
-
+vim.keymap.set("n", "9", ":normal @e<CR>")
 vim.g.leader = {
 
   mood = "fine",
 }
+
 --- ##########
 --- ########## -- SESSION TODO'S
 --- ##########
