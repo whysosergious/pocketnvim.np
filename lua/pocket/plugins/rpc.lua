@@ -39,7 +39,7 @@ local function start_deno_server()
 end
 
 -- Start the Deno server when Neovim starts
-start_deno_server()
+-- start_deno_server()
 
 vim.cmd [[
   func! s:ForFS(msg)

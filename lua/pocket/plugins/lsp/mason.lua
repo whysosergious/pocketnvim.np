@@ -34,6 +34,7 @@ return {
         "lua_ls",
         "rust_analyzer",
         "zls",
+        -- "jqls", -- need a global go installation
       },
     }
 
@@ -42,13 +43,12 @@ return {
         "oxlint", -- swc in rust
         "htmlhint", -- html linter
         "ts-standard", -- typescript linter
-        "deno", -- deno runtime
+        -- "deno", -- deno runtime
         "codelldb",
-        "prettier", -- javascript formatter
-        "prettierd",
         "ast-grep",
         "stylua", -- lua formatter
 
+        "jq",
         "stylelint", -- css formatter
         -- "isort", -- python formatter
         -- "black", -- python formatter

@@ -1772,7 +1772,7 @@ function DURATION_UNIT() {
 function FILESIZE_UNIT() {
   // prettier-ignore
   return choice(...[
-    "b", "B",
+    "b", "B", prettier
 
     "kb", "kB", "Kb", "KB",
     "mb", "mB", "Mb", "MB",

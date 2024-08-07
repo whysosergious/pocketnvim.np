@@ -14,7 +14,6 @@ local options = {
     cursorline = true, -- highlight the text line of the cursor
     expandtab = true, -- enable the use of space in tab
     fileencoding = "utf-8", -- file content encoding for the buffer
-    fillchars = { eob = " " }, -- disable `~` on nonexistent lines
     foldenable = true, -- enable fold for nvim-ufo
     foldlevel = 99, -- set high foldlevel for nvim-ufo
     foldlevelstart = 99, -- start with all code unfolded
@@ -24,14 +23,12 @@ local options = {
     infercase = true, -- infer cases in keyword completion
     laststatus = 3, -- global statusline
     linebreak = true, -- wrap lines at 'breakat'
-    mouse = "a", -- enable mouse support
     number = true, -- show numberline
     preserveindent = true, -- preserve indent structure as much as possible
     pumheight = 7, -- height of the pop up menu
     relativenumber = true, -- show relative numberline
     shiftwidth = 2, -- number of space inserted for indentation
     showmode = true, -- disable showing modes in command line
-    showtabline = 0, -- always display tabline
     signcolumn = "yes", -- always show the sign column
     smartcase = true, -- case sensitive searching
     splitbelow = true, -- splitting a new window below the current one
@@ -42,7 +39,6 @@ local options = {
     title = false, -- set terminal title to the filename and path
     undofile = true, -- enable persistent undo
     updatetime = 300, -- length of time to wait before triggering the plugin
-    virtualedit = "block", -- allow going past end of line in visual block mode
     wrap = true, -- disable wrapping of lines longer than the width of window
     writebackup = false, -- disable making a backup before overwriting a file
   },
@@ -65,18 +61,10 @@ local options = {
     git_worktrees = nil, -- enable git integration for detached worktrees (specify a table where each entry is of the form { toplevel = vim.env.HOME, gitdir=vim.env.HOME .. "/.dotfiles" })
   },
 
-
-
-
   t = vim.t.bufs and vim.t.bufs or { bufs = vim.api.nvim_list_bufs() }, -- initialize buffers for the current tab
 }
 
 for scope, table in pairs(options) do
-
-
-
-
-
   for setting, value in pairs(table) do
     vim[scope][setting] = value
   end
