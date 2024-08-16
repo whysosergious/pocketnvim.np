@@ -48,10 +48,10 @@ return {
         keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts) -- smart rename
 
         opts.desc = "Show buffer diagnostics"
-        keymap.set("n", "<leader>D", "<cmd>Telescope diagnostics bufnr=0<CR>", opts) -- show  diagnostics for file
+        keymap.set("n", "<leader>db", "<cmd>Telescope diagnostics bufnr=0<CR>", opts) -- show  diagnostics for file
 
         opts.desc = "Show line diagnostics"
-        keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts) -- show diagnostics for line
+        keymap.set("n", "<leader>dl", vim.diagnostic.open_float, opts) -- show diagnostics for line
 
         opts.desc = "Go to previous diagnostic"
         keymap.set("n", "[d", vim.diagnostic.goto_prev, opts) -- jump to previous diagnostic in buffer
@@ -66,10 +66,11 @@ return {
         keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts) -- mapping to restart lsp if necessary
       end,
     })
-
+    -- {
+    --   hostInfo = "neovim",
+    -- }
     -- used to enable autocompletion (assign to every lsp server config)
     local capabilities = cmp_nvim_lsp.default_capabilities()
-
     -- Change the Diagnostic symbols in the sign column (gutter)
     -- (not in youtube nvim video)
     local signs = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
@@ -182,9 +183,14 @@ return {
       end,
     }
   end,
+  ["ast_grep"] = function()
+    default_config = {
+      cmd = { "ast-grep", "lsp" },
+      single_file_support = false,
+      root_dir = nvim_lsp.util.root_pattern "sgconfig.yml",
+    }
+  end,
 }
-
-
 
 -- -- perform buffer local configurations for LSP
 -- local function on_attach(ev)
@@ -338,7 +344,7 @@ return {
 
 -- return {
 --   "neovim/nvim-lspconfig",
---   config = function(_, opts)  
+--   config = function(_, opts)
 --     local lspconfig = require "lspconfig"
 --     for server, config in pairs(opts.servers) do
 --       lspconfig[server].setup(config)

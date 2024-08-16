@@ -26,4 +26,8 @@ return {
       },
     }
   end,
+
+  -- "echasnovski/mini.icons",
+  -- version = false,
+  -- require("mini.icons").setup(),
 }

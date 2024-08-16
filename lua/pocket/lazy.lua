@@ -24,6 +24,7 @@ require("lazy").setup({
   { import = "pocket.plugins" },
   { import = "pocket.plugins.lsp" },
   { import = "pocket.plugins.lsp.servers" },
+
   -- {
   --   "LhKipp/nvim-nu",
   --   config = function()
@@ -64,6 +65,10 @@ require("lazy").setup({
         let g:oceanic_next_terminal_italic = 1
         colorscheme OceanicNext
   
+" hi Normal guibg=NONE ctermbg=NONE
+" hi LineNr guibg=NONE ctermbg=NONE
+" hi SignColumn guibg=NONE ctermbg=NONE
+" hi EndOfBuffer guibg=NONE ctermbg=NONE
   
          hi Normal guibg=NONE ctermbg=NONE
          hi LineNr guibg=NONE ctermbg=NONE
@@ -131,12 +136,14 @@ require("lazy").setup({
   --         terminal = true,
   --         legacy_highlights = true, -- Improve compatibility for previous versions of Neovim
   --         migrations = true, -- Handle deprecated options automatically
+  --       },
   --       --},
   --
   --       styles = {
   --         bold = true,
   --         italic = true,
   --         transparency = false,
+  --       },
   --       }
   --
   --       groups = {

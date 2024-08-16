@@ -27,6 +27,6 @@ vim.api.nvim_create_autocmd('BufWritePost', {
 })
 
 
-PV.out_buf = M
+-- PV.out_buf = M
 
 return M

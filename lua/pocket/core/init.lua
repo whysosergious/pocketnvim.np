@@ -1,8 +1,8 @@
 -- temp
-vim.g.mapleader = ' '
+vim.g.mapleader = " "
 
 -- utils
-local source_dir = require 'pocket.util.load_all'
+local source_dir = require "pocket.util.load_all"
 
 -- vim.o.shell = vim.fn.executable('pwsh') and 'pwsh' or 'powershell'
 -- vim.o.shell = vim.fn.executable('nu') and 'nu' or 'nushell.exe'
@@ -16,10 +16,10 @@ local source_dir = require 'pocket.util.load_all'
 -- vim.opt.shellxquote = ""
 --
 
-local recipes = source_dir 'pocket.core.recipes'
-require 'pocket.core.cmd'
-require 'pocket.core.options'
-require 'pocket.core.keymaps'
+local recipes = source_dir "pocket.core.recipes"
+require "pocket.core.cmd"
+require "pocket.core.options"
+require "pocket.core.keymaps"
 
 vim.cmd [[:set autoindent smartindent]]
 

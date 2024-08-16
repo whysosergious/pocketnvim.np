@@ -14,7 +14,6 @@ return {
 
     mason_null_ls.setup {
       ensure_installed = {
-        "prettier", -- prettier formatter
         "oxlint", -- ox linter
         "stylua", -- lua formatter
         -- 'eslint_d', -- js linter
@@ -37,22 +36,6 @@ return {
       sources = {
         --  to disable file types use
         --  "formatting.prettier.with({disabled_filetypes: {}})" (see null-ls docs)
-        formatting.prettier.with {
-          extra_filetypes = {
-            "vue",
-            "ts",
-            "tsx",
-            "js",
-            "jsx",
-            "json",
-            "html",
-            "css",
-            "scss",
-            "less",
-            "yaml",
-            "markdown",
-          },
-        }, -- js/ts formatter
         formatting.stylua, -- lua formatter
         -- formatting.gofumpt,
         -- formatting.goimports_reviser,
@@ -72,24 +55,24 @@ return {
         -- }),
       },
       -- configure format on save
-      on_attach = function(current_client, bufnr)
-        if current_client.supports_method "textDocument/formatting" then
-          vim.api.nvim_clear_autocmds { group = augroup, buffer = bufnr }
-          vim.api.nvim_create_autocmd("BufWritePre", {
-            group = augroup,
-            buffer = bufnr,
-            callback = function()
-              vim.lsp.buf.format {
-                filter = function(client)
-                  --  only use null-ls for formatting instead of lsp server
-                  return client.name == "null-ls"
-                end,
-                bufnr = bufnr,
-              }
-            end,
-          })
-        end
-      end,
+      -- on_attach = function(current_client, bufnr)
+      --   if current_client.supports_method "textDocument/formatting" then
+      --     vim.api.nvim_clear_autocmds { group = augroup, buffer = bufnr }
+      --     vim.api.nvim_create_autocmd("BufWritePre", {
+      --       group = augroup,
+      --       buffer = bufnr,
+      --       callback = function()
+      --         vim.lsp.buf.format {
+      --           filter = function(client)
+      --             --  only use null-ls for formatting instead of lsp server
+      --             return client.name == "null-ls"
+      --           end,
+      --           bufnr = bufnr,
+      --         }
+      --       end,
+      --     })
+      --   end
+      -- end,
     }
   end,
 }

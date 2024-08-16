@@ -22,7 +22,9 @@ local luv = vim.uv or vim.loop -- TODO: REMOVE WHEN DROPPING SUPPORT FOR Neovim 
 --- A provider function for the fill string
 ---@return string # the statusline string for filling the empty space
 -- @usage local heirline_component = { provider = require("astronvim.utils.status").provider.fill }
-function M.fill() return "%=" end
+function M.fill()
+  return "%="
+end
 
 --- A provider function for the signcolumn string
 ---@param opts? table options passed to the stylize function
@@ -91,7 +93,9 @@ function M.foldcolumn(opts)
       else
         local closed = foldinfo.lines > 0
         local first_level = foldinfo.level - width - (closed and 1 or 0) + 1
-        if first_level < 1 then first_level = 1 end
+        if first_level < 1 then
+          first_level = 1
+        end
 
         for col = 1, width do
           str = str
@@ -116,7 +120,9 @@ end
 ---@return function # the statusline function to return a string for a tab number
 -- @usage local heirline_component = { provider = require("astronvim.utils.status").provider.tabnr() }
 function M.tabnr()
-  return function(self) return (self and self.tabnr) and "%" .. self.tabnr .. "T " .. self.tabnr .. " %T" or "" end
+  return function(self)
+    return (self and self.tabnr) and "%" .. self.tabnr .. "T " .. self.tabnr .. " %T" or ""
+  end
 end
 
 --- A provider function for showing if spellcheck is on
@@ -126,7 +132,9 @@ end
 -- @see astronvim.utils.status.utils.stylize
 function M.spell(opts)
   opts = extend_tbl({ str = "", icon = { kind = "Spellcheck" }, show_empty = true }, opts)
-  return function() return status_utils.stylize(vim.wo.spell and opts.str or nil, opts) end
+  return function()
+    return status_utils.stylize(vim.wo.spell and opts.str or nil, opts)
+  end
 end
 
 --- A provider function for showing if paste is enabled
@@ -137,8 +145,12 @@ end
 function M.paste(opts)
   opts = extend_tbl({ str = "", icon = { kind = "Paste" }, show_empty = true }, opts)
   local paste = vim.opt.paste
-  if type(paste) ~= "boolean" then paste = paste:get() end
-  return function() return status_utils.stylize(paste and opts.str or nil, opts) end
+  if type(paste) ~= "boolean" then
+    paste = paste:get()
+  end
+  return function()
+    return status_utils.stylize(paste and opts.str or nil, opts)
+  end
 end
 
 --- A provider function for displaying if a macro is currently being recorded
@@ -150,7 +162,9 @@ function M.macro_recording(opts)
   opts = extend_tbl({ prefix = "@" }, opts)
   return function()
     local register = vim.fn.reg_recording()
-    if register ~= "" then register = opts.prefix .. register end
+    if register ~= "" then
+      register = opts.prefix .. register
+    end
     return status_utils.stylize(register, opts)
   end
 end
@@ -171,8 +185,11 @@ end
 -- @usage local heirline_component = { provider = require("astronvim.utils.status").provider.search_count() }
 -- @see astronvim.utils.status.utils.stylize
 function M.search_count(opts)
-  local search_func = vim.tbl_isempty(opts or {}) and function() return vim.fn.searchcount() end
-    or function() return vim.fn.searchcount(opts) end
+  local search_func = vim.tbl_isempty(opts or {}) and function()
+    return vim.fn.searchcount()
+  end or function()
+    return vim.fn.searchcount(opts)
+  end
   return function()
     local search_ok, search = pcall(search_func)
     if search_ok and type(search) == "table" and search.total then
@@ -196,7 +213,9 @@ end
 -- @usage local heirline_component = { provider = require("astronvim.utils.status").provider.mode_text() }
 -- @see astronvim.utils.status.utils.stylize
 function M.mode_text(opts)
-  local max_length = math.max(unpack(vim.tbl_map(function(str) return #str[1] end, vim.tbl_values(env.modes))))
+  local max_length = math.max(unpack(vim.tbl_map(function(str)
+    return #str[1]
+  end, vim.tbl_values(env.modes))))
   return function()
     local text = env.modes[vim.fn.mode()][1]
     if opts and opts.pad_text then
@@ -260,7 +279,9 @@ function M.scrollbar(opts)
     local curr_line = vim.api.nvim_win_get_cursor(0)[1]
     local lines = vim.api.nvim_buf_line_count(0)
     local i = math.floor((curr_line - 1) / lines * #sbar) + 1
-    if sbar[i] then return status_utils.stylize(string.rep(sbar[i], 2), opts) end
+    if sbar[i] then
+      return status_utils.stylize(string.rep(sbar[i], 2), opts)
+    end
   end
 end
 
@@ -294,7 +315,9 @@ end
 function M.filename(opts)
   opts = extend_tbl({
     fallback = "Untitled",
-    fname = function(nr) return vim.api.nvim_buf_get_name(nr) end,
+    fname = function(nr)
+      return vim.api.nvim_buf_get_name(nr)
+    end,
     modify = ":t",
   }, opts)
   return function(self)
@@ -335,7 +358,9 @@ end
 -- @see astronvim.utils.status.utils.stylize
 function M.unique_path(opts)
   opts = extend_tbl({
-    buf_name = function(bufnr) return vim.fn.fnamemodify(vim.api.nvim_buf_get_name(bufnr), ":t") end,
+    buf_name = function(bufnr)
+      return vim.fn.fnamemodify(vim.api.nvim_buf_get_name(bufnr), ":t")
+    end,
     bufnr = 0,
     max_length = 16,
   }, opts)
@@ -354,7 +379,9 @@ function M.unique_path(opts)
     local current
     for _, value in ipairs(vim.t.bufs or {}) do
       if name == opts.buf_name(value) and value ~= opts.bufnr then
-        if not current then current = path_parts(opts.bufnr) end
+        if not current then
+          current = path_parts(opts.bufnr)
+        end
         local other = path_parts(value)
 
         for i = #current - 1, 1, -1 do
@@ -408,7 +435,9 @@ end
 function M.file_icon(opts)
   return function(self)
     local devicons_avail, devicons = pcall(require, "nvim-web-devicons")
-    if not devicons_avail then return "" end
+    if not devicons_avail then
+      return ""
+    end
     local bufnr = self and self.bufnr or 0
     local ft_icon, _ = devicons.get_icon(vim.fn.fnamemodify(vim.api.nvim_buf_get_name(bufnr), ":t"))
     if not ft_icon then
@@ -424,7 +453,9 @@ end
 -- @usage local heirline_component = { provider = require("astronvim.utils.status").provider.git_branch() }
 -- @see astronvim.utils.status.utils.stylize
 function M.git_branch(opts)
-  return function(self) return status_utils.stylize(vim.b[self and self.bufnr or 0].gitsigns_head or "", opts) end
+  return function(self)
+    return status_utils.stylize(vim.b[self and self.bufnr or 0].gitsigns_head or "", opts)
+  end
 end
 
 --- A provider function for showing the current git diff count of a specific type
@@ -433,7 +464,9 @@ end
 -- @usage local heirline_component = { provider = require("astronvim.utils.status").provider.git_diff({ type = "added" }) }
 -- @see astronvim.utils.status.utils.stylize
 function M.git_diff(opts)
-  if not opts or not opts.type then return end
+  if not opts or not opts.type then
+    return
+  end
   return function(self)
     local status = vim.b[self and self.bufnr or 0].gitsigns_status_dict
     return status_utils.stylize(
@@ -449,7 +482,9 @@ end
 -- @usage local heirline_component = { provider = require("astronvim.utils.status").provider.diagnostics({ severity = "ERROR" }) }
 -- @see astronvim.utils.status.utils.stylize
 function M.diagnostics(opts)
-  if not opts or not opts.severity then return end
+  if not opts or not opts.severity then
+    return
+  end
   return function(self)
     local bufnr = self and self.bufnr or 0
     local count = #vim.diagnostic.get(bufnr, opts.severity and { severity = vim.diagnostic.severity[opts.severity] })
@@ -463,7 +498,7 @@ end
 -- @usage local heirline_component = { provider = require("astronvim.utils.status").provider.lsp_progress() }
 -- @see astronvim.utils.status.utils.stylize
 function M.lsp_progress(opts)
-  local spinner = utils.get_spinner("LSPLoading", 1) or { "" }
+  local spinner = utils.get_spinner("LSPLoading", 1)
   return function()
     local _, Lsp = next(astronvim.lsp.progress)
     return status_utils.stylize(Lsp and (spinner[math.floor(luv.hrtime() / 12e7) % #spinner + 1] .. table.concat({
@@ -499,7 +534,9 @@ function M.lsp_client_names(opts)
     local str = table.concat(buf_client_names, ", ")
     if type(opts.truncate) == "number" then
       local max_width = math.floor(status_utils.width() * opts.truncate)
-      if #str > max_width then str = string.sub(str, 0, max_width) .. "…" end
+      if #str > max_width then
+        str = string.sub(str, 0, max_width) .. "…"
+      end
     end
     return status_utils.stylize(str, opts)
   end
@@ -511,7 +548,9 @@ end
 -- @usage local heirline_component = { provider = require("astronvim.utils.status").provider.treesitter_status() }
 -- @see astronvim.utils.status.utils.stylize
 function M.treesitter_status(opts)
-  return function() return status_utils.stylize(require("nvim-treesitter.parser").has_parser() and "TS" or "", opts) end
+  return function()
+    return status_utils.stylize(require("nvim-treesitter.parser").has_parser() and "TS" or "", opts)
+  end
 end
 
 --- A provider function for displaying a single string

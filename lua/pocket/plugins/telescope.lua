@@ -25,11 +25,23 @@ return {
       local sorters = require "telescope.sorters"
 
       -- or create your custom action
-      local custom_actions = transform_mod {
-        open_trouble_qflist = function(prompt_bufnr)
-          trouble.toggle "quickfix"
-        end,
-      }
+      local custom_actions =
+        transform_mod {
+          open_trouble_qflist = function(prompt_bufnr)
+            trouble.toggle "quickfix"
+          end,
+        }, require("telescope").setup {
+          extensions = {
+            ast_grep = {
+              command = {
+                "sg",
+                "--json=stream",
+              }, -- must have --json=stream
+              grep_open_files = false, -- search in opened files
+              lang = nil, -- string value, specify language for ast-grep `nil` for default
+            },
+          },
+        }
 
       -- local centered_dropdown = themes.get_dropdown {
       --   width = 0.6,

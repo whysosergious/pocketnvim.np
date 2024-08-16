@@ -5,14 +5,16 @@ vim.g.leader = {
 }
 
 PV = {
-  group = os.getenv "PV_GROUP",
-  rnt = os.getenv "PV_RNT",
+  group = os.getenv "shelly_group",
+  rnt = os.getenv "rnt_env",
   plugmaps = {
     state = {
       -- name = active-state
     },
   },
 }
+
+Sh = {}
 --- ##########
 --- ########## -- SESSION TODO'S
 --- ##########
