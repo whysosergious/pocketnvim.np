@@ -39,10 +39,12 @@ function Load_saved_scheme()
   end
 end
 return {
+
   --
-  {
-    "marko-cerovac/material.nvim",
-    -- require("newpaper").setup { style = "dark" },
+
+  "marko-cerovac/material.nvim",
+  -- require("newpaper").setup { style = "dark" },
+  config = function()
     -- --   --
     vim.cmd [[
         " For Neovim 0.1.3 and 0.1.4
@@ -57,6 +59,7 @@ return {
         syntax enable
         " colorscheme OceanicNext
 
+        colorscheme material
 
         syntax on
         let g:material_style = 'oceanic'
@@ -69,11 +72,10 @@ return {
         let g:material_contrast =  1
         let g:material_borders = 1
 
-        " colorscheme material
         
         " let g:oceanic_next_terminal_bold = 1
         " let g:oceanic_next_terminal_italic = 1
-        colorscheme base16-chalk
+        " colorscheme base16-chalk
 
         " Highlight clear  
         hi disable_background guibg=NONE ctermbg=NONE
@@ -82,7 +84,6 @@ return {
         hi SignColumn guibg=NONE ctermbg=NONE
         hi EndOfBuffer guibg=NONE ctermbg=NONE
 
-           ]],
-  },
-  -- end
+    ]]
+  end,
 }

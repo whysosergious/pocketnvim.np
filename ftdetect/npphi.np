@@ -1,0 +1,1 @@
+au BufRead, BufNewFile *.minu set filetype=np

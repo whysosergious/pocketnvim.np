@@ -46,5 +46,3 @@ function do_save_active()
 end
 
 _G.a = do_save_active
-
-return {}

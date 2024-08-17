@@ -17,6 +17,26 @@ return {
 
     -- configure treesitter
     treesitter.setup {
+      ignore_install = {},
+      sync_install = false,
+      modules = {
+        -- textobjects = require "nvim-treesitter-textobjects",
+        -- context = require "nvim-treesitter-context",
+        -- refactor = require "nvim-treesitter-refactor",
+        -- autotag = require "nvim-ts-autotag",
+      },
+      TSConfig = {
+        lua = {
+          setup = function()
+            require("nvim-treesitter.parsers").get_parser_configs().lua.used_by = "fennel"
+          end,
+        },
+        typescript = {
+          setup = function()
+            require("nvim-treesitter.parsers").get_parser_configs().typescript.used_by = "javascript"
+          end,
+        },
+      },
       auto_install = true,
       -- enable syntax highlighting
       highlight = {
@@ -100,9 +120,11 @@ return {
                 all_cmd_names = [[help commands | get name | str join "\n"]],
               },
               -- optional entres:
-              -- requires_generate_from_grammar = false, -- if folder contains pre-generated src/parser.c
+              -- requires_generate_from_grammar = false, -- if folder contains pre-generated src/parser.c§:
             },
-            filetype = "nu", -- if filetype does not match the parser name
+
+            -- filetype = ["nu", "np"], -- if filetype does not match the parser name
+            filetype = { "nu", "np" }, -- if filetype does not match the parser name
           },
         },
       },
