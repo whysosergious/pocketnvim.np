@@ -83,14 +83,14 @@ end
 vim.g.mapleader = " "
 
 -- pf for 'peruse files' .. le horrible
-vim.keymap.set("n", "<leader>pf", vim.cmd.Ex)
+-- vim.keymap.set("n", "<leader>pf", vim.cmd.Ex)
 
 -- setting only 'yank' to use the '+' register .. if 'p' is crowded, use "+p
-vim.cmd([[:nnoremap <expr> y (v:register ==# '"' ? '"+' : '') . 'y']])
-vim.cmd([[:nnoremap <expr> yy (v:register ==# '"' ? '"+' : '') . 'yy']])
-vim.cmd([[:nnoremap <expr> Y (v:register ==# '"' ? '"+' : '') . 'Y']])
-vim.cmd([[:xnoremap <expr> y (v:register ==# '"' ? '"+' : '') . 'y']])
-vim.cmd([[:xnoremap <expr> Y (v:register ==# '"' ? '"+' : '') . 'Y']])
+-- vim.cmd([[:nnoremap <expr> y (v:register ==# '"' ? '"+' : '') . 'y']])
+-- vim.cmd([[:nnoremap <expr> yy (v:register ==# '"' ? '"+' : '') . 'yy']])
+-- vim.cmd([[:nnoremap <expr> Y (v:register ==# '"' ? '"+' : '') . 'Y']])
+-- vim.cmd([[:xnoremap <expr> y (v:register ==# '"' ? '"+' : '') . 'y']])
+-- vim.cmd([[:xnoremap <expr> Y (v:register ==# '"' ? '"+' : '') . 'Y']])
 
 
 
@@ -156,28 +156,15 @@ end
 
 
 
--- NeoTree
-if is_available "neo-tree.nvim" then
-  maps.n["<leader>e"] = { "<cmd>Neotree toggle<cr>", desc = "Toggle Explorer" }
-  maps.n["<leader>o"] = {
-    function()
-      if vim.bo.filetype == "neo-tree" then
-        vim.cmd.wincmd "p"
-      else
-        vim.cmd.Neotree "focus"
-      end
-    end,
-    desc = "Toggle Explorer Focus",
-  }
-end
+
 
 
 
 -- Package Manager
-if is_available "mason.nvim" then
-  maps.n["<leader>pm"] = { "<cmd>Mason<cr>", desc = "Mason Installer" }
-  maps.n["<leader>pM"] = { "<cmd>MasonUpdateAll<cr>", desc = "Mason Update" }
-end
+-- - if is_available "mason.nvim" then
+--   maps.n["<leader>pm"] = { "<cmd>Mason<cr>", desc = "Mason Installer" }
+--   maps.n["<leader>pM"] = { "<cmd>MasonUpdateAll<cr>", desc = "Mason Update" }
+-- end
 
 -- Smart Splits
 if is_available "smart-splits.nvim" then

@@ -3,12 +3,41 @@ return {
   event = { "BufReadPre", "BufNewFile" },
   dependencies = {
     "hrsh7th/cmp-nvim-lsp",
+'saghen/blink.cmp',
     { "antosha417/nvim-lsp-file-operations", config = true },
     { "folke/neodev.nvim", opts = {} },
+
   },
-  config = function()
+-- opts = {
+--     servers = {
+--       lua_ls = {}
+--     }
+--   },
+    config = function(_, opts)
+
+      local capabilities = require('blink.cmp').get_lsp_capabilities()
+      require('lspconfig').lua_ls.setup { capabilities = capabilities }
+    
+
+
+    -- local lspconfig = require('lspconfig')
+    -- for server, config in pairs(opts.servers) do
+    --   -- passing config.capabilities to blink.cmp merges with the capabilities in your
+    --   -- `opts[server].capabilities, if you've defined it
+    -- end
+  -- end
+
+ -- example calling setup directly for each LSP
+  -- config = function()
+  --   local capabilities = require('blink.cmp').get_lsp_capabilities()
+  --   -- local lspconfig = require('lspconfig')
+  --
+  --   lspconfig['lua-ls'].setup({ capabilities = capabilities })
+  -- -- end,
+
+  -- config = function()
     -- import lspconfig plugin
-    local lspconfig = require "lspconfig"
+    -- local lspconfig = require "lspconfig"
 
     -- import mason_lspconfig plugin
     local mason_lspconfig = require "mason-lspconfig"
@@ -20,10 +49,12 @@ return {
 
     vim.api.nvim_create_autocmd("LspAttach", {
       group = vim.api.nvim_create_augroup("UserLspConfig", {}),
-      callback = function(ev)
+
+
+      callback = function()
         -- Buffer local mappings.
         -- See `:help vim.lsp.*` for documentation on any of the below functions
-        local opts = { buffer = ev.buf, silent = true }
+        -- local opts = { buffer = ev.buf, silent = true }
 
         -- set keybinds
         opts.desc = "Show LSP references"
@@ -70,7 +101,7 @@ return {
     --   hostInfo = "neovim",
     -- }
     -- used to enable autocompletion (assign to every lsp server config)
-    local capabilities = cmp_nvim_lsp.default_capabilities()
+    -- local capabilities = cmp_nvim_lsp.default_capabilities()
     -- Change the Diagnostic symbols in the sign column (gutter)
     -- (not in youtube nvim video)
     local signs = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
@@ -80,11 +111,11 @@ return {
     end
     mason_lspconfig.setup_handlers {
       -- default handler for installed servers
-      function(server_name)
-        lspconfig[server_name].setup {
-          capabilities = capabilities,
-        }
-      end,
+      -- function(server_name)
+      --   lspconfig[server_name].setup {
+      --     capabilities = capabilities,
+      --   }
+      -- end,
       --   -- ["svelte"] = function()
       --   --   -- configure svelte server
       --   --   lspconfig["svelte"].setup({
@@ -113,84 +144,212 @@ return {
       --   --     capabilities = capabilities,
       --   --     filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "svelte" },
       --   --   })
-      --   -- end,
-      ["tsserver"] = function()
-        -- configure tsserver (with special settings)
-        lspconfig["tsserver"].setup {
-          capabilities = capabilities,
-          on_attach = function(client, bufnr)
-            -- disable tsserver formatting
-            client.resolved_capabilities.document_formatting = false
-          end,
-        }
-      end,
-      ["html"] = function()
-        -- configure html (with special settings)
-        lspconfig["html"].setup {
-          capabilities = capabilities,
-          settings = {
-            html = {
-              suggest = {
-                -- enable completion for all tags
-                completion = {
-                  tagComplete = true,
-                },
-              },
-            },
-          },
-        }
-      end,
-      ["cssls"] = function()
-        -- configure cssls (with special settings)
-        lspconfig["cssls"].setup {
-          capabilities = capabilities,
-          settings = {
-            css = {
-              validate = true,
-            },
-          },
-        }
-      end,
-      ["rust_analyzer"] = function()
-        -- configure rust_analyzer (with special settings)
-        lspconfig["rust_analyzer"].setup {
-          capabilities = capabilities,
-          settings = {
-            ["rust-analyzer"] = {
-              checkOnSave = {
-                command = "clippy",
-              },
-            },
-          },
-        }
-      end,
-      ["lua_ls"] = function()
-        -- configure lua server (with special settings)
-        lspconfig["lua_ls"].setup {
-          capabilities = capabilities,
-          settings = {
-            Lua = {
-              -- make the language server recognize "vim" global
-              diagnostics = {
-                globals = { "vim" },
-              },
-              completion = {
-                callSnippet = "Replace",
-              },
-            },
-          },
-        }
-      end,
+      --   -- end
+
+      -- ["tsserver"] = function()
+      --   -- configure tsserver (with special settings)
+      --   lspconfig["tsserver"].setup {
+      --     capabilities = capabilities,
+      --     on_attach = function(client, bufnr)
+      --       -- disable tsserver formatting
+      --       client.resolved_capabilities.document_formatting = true          
+      --     end,
+      --   }
+      -- end,
+
+
+
+      -- ["html"] = function()
+      -- 
+      --     
+      -- lspconfig['html'].setup
+      --   { 
+      --     capabilities = capabilities ,
+      --     -- configure html (with special settings)
+      --   
+      --     settings = {
+      --       html = {
+      --         suggest = {
+      --           -- enable completion for all tags
+      --           completion = {
+      --             tagComplete = true,
+      --           },
+      --         },
+      --       },
+      --     },
+      --   }
+      -- end,
+      -- ["cssls"] = function()
+      --   -- configure cssls (with special settings)
+      --   lspconfig["cssls"].setup {
+      --     capabilities = capabilities,
+      --     settings = {
+      --       css = {
+      --         validate = true,
+      --       },
+      --     },
+      --   }
+      -- end,
+      -- ["rust_analyzer"] = function()
+      --   -- configure rust_analyzer (with special settings)
+      --   lspconfig["rust_analyzer"].setup {
+      --     capabilities = capabilities,
+      --     settings = {
+      --       ["rust-analyzer"] = {
+      --         checkOnSave = {
+      --           command = "clippy",
+      --         },
+      --       },
+      --     },
+      --   }
+      -- end,
+      -- ["lua_ls"] = function()
+      --   -- configure lua server (with special settings)
+      --   lspconfig["lua_ls"].setup {
+      --     capabilities = capabilities,
+      --     settings = {
+      --       Lua = {
+      --         -- make the language server recognize "vim" global
+      --         diagnostics = {
+      --           globals = { "vim" },
+      --         },
+      --         completion = {
+      --           callSnippet = "Replace",
+      --         },
+      --       },
+      --     },
+      --   }
+      -- end,
+    
+
     }
-  end,
-  ["ast_grep"] = function()
-    default_config = {
-      cmd = { "ast-grep", "lsp" },
-      single_file_support = false,
-      root_dir = nvim_lsp.util.root_pattern "sgconfig.yml",
-    }
-  end,
-}
+-- local map = keymap
+--   -- if client.supports_method "textDocument/implementation" then
+--   --   map("n", "gi", function()
+--   --     require("telescope.builtin").lsp_implementations {
+--   --       reuse_win = true,
+--   --     }
+--   --   end, { desc = "Goto implementation" })
+--   -- end
+--
+--   map("n", "gd", function()
+--     require("telescope.builtin").lsp_definitions { reuse_win = true }
+--   end, { desc = "Goto definition" })
+--   map("n", "gD", function()
+--     vim.lsp.buf.declaration()
+--   end, { desc = "Goto declaration" })
+--   map("n", "gt", function()
+--     require("telescope.builtin").lsp_type_definitions {
+--       reuse_win = true,
+--     }
+--   end, { desc = "Goto type" })
+--
+--   map("n", "]d", function()
+--     vim.diagnostic.goto_next { severity = nil }
+--   end, { desc = "Next diagnostic" })
+--   map("n", "[d", function()
+--     vim.diagnostic.goto_prev { severity = nil }
+--   end, { desc = "Previous diagnostic" })
+--   map("n", "]e", function()
+--     vim.diagnostic.goto_next {
+--       severity = vim.diagnostic.severity["ERROR"],
+--     }
+--   end, { desc = "Next error" })
+--   map("n", "[e", function()
+--     vim.diagnostic.goto_prev {
+--       severity = vim.diagnostic.severity["ERROR"],
+--     }
+--   end, { desc = "Previous error" })
+--   map("n", "]w", function()
+--     vim.diagnostic.goto_next {
+--       severity = vim.diagnostic.severity["WARN"],
+--     }
+--   end, { desc = "Next warning" })
+--   map("n", "[w", function()
+--     vim.diagnostic.goto_prev {
+--       severity = vim.diagnostic.severity["WARN"],
+--     }
+--   end, { desc = "Previous warning" })
+--
+-- --   -- search
+--   map("n", "<leader>sr", function()
+--     require("telescope.builtin").lsp_references { jump_type = "vsplit" }
+--   end, { desc = "Search references" })
+--   map("n", "<leader>ss", function()
+--     require("telescope.builtin").lsp_document_symbols()
+--   end, { desc = "Search symbols" })
+--   map("n", "<leader>sd", function()
+--     require("telescope.builtin").diagnostics { bufnr = 0 }
+--   end, { desc = "Search diagnostics" })
+--   map("n", "<leader>sD", function()
+--     require("telescope.builtin").diagnostics { bufnr = nil }
+--   end, { desc = "Search diagnostics (all buffers)" })
+--
+-- --   if client.supports_method "callHierarchy/incomingCalls" then
+-- --     map("n", "<leader>sc", function()
+-- --       require("telescope.builtin").lsp_incoming_calls()
+-- --     end, { desc = "Search incoming calls" })
+-- --   end
+-- --   if client.supports_method "callHierarchy/outgoingCalls" then
+-- --     map("n", "<leader>sC", function()
+-- --       require("telescope.builtin").lsp_outgoing_calls()
+-- --     end, { desc = "Search outgoing calls" })
+-- --   end
+--
+-- --   -- edits
+--   map("n", "<leader>cr", function()
+--     vim.lsp.buf.rename()
+--   end, { desc = "Rename" })
+--   map({ "n", "v" }, "<leader>ca", function()
+--     vim.lsp.buf.code_action()
+--   end, { desc = "Code action" })
+--   map("n", "<leader>cA", function()
+--     vim.lsp.buf.code_action {
+--       context = { only = { "source" }, diagnostics = {} },
+--     }
+--   end, { desc = "Source action" })
+--   map("n", "<leader>cf", function()
+--     require("conform").format()
+--   end, { desc = "Format" })
+--   map("v", "<leader>cf", function()
+--     require("conform").format()
+--   end, { desc = "Format selection" })
+--
+-- --   -- help
+--   map("n", "K", function()
+--     vim.lsp.buf.hover()
+--   end, { desc = "Hover information" })
+--   map("n", "gK", function()
+--     vim.lsp.buf.signature_help()
+--   end, { desc = "Signature help" })
+--   map("i", "<c-k>", function()
+--     vim.lsp.buf.signature_help()
+--   end, { desc = "Signature help" })
+--   -- vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
+--
+-- --   -- which-key
+--   local mappings = {
+--     { "<leader>c", group = "code" },
+--   }
+--   local options = {
+--     mode = { "n", "v" },
+--   }
+--   local wk = require "which-key"
+--   wk.add(mappings, options)
+--
+--
+--   -- ["ast_grep"] = function()
+--   --   default_config = {
+--   --     cmd = { "ast-grep", "lsp" },
+--   --     single_file_support = false,
+--   --     root_dir = nvim_lsp.util.root_pattern "sgconfig.yml",
+--   --   }
+--   -- end
+--    )
+
+  end
+  }
+
 
 -- -- perform buffer local configurations for LSP
 -- local function on_attach(ev)
@@ -227,122 +386,7 @@ return {
 --   -- })
 
 --   -- goto
---   if client.supports_method "textDocument/implementation" then
---     map("n", "gi", function()
---       require("telescope.builtin").lsp_implementations {
---         reuse_win = true,
---       }
---     end, { desc = "Goto implementation" })
---   end
-
---   map("n", "gd", function()
---     require("telescope.builtin").lsp_definitions { reuse_win = true }
---   end, { desc = "Goto definition" })
---   map("n", "gD", function()
---     vim.lsp.buf.declaration()
---   end, { desc = "Goto declaration" })
---   map("n", "gt", function()
---     require("telescope.builtin").lsp_type_definitions {
---       reuse_win = true,
---     }
---   end, { desc = "Goto type" })
-
---   map("n", "]d", function()
---     vim.diagnostic.goto_next { severity = nil }
---   end, { desc = "Next diagnostic" })
---   map("n", "[d", function()
---     vim.diagnostic.goto_prev { severity = nil }
---   end, { desc = "Previous diagnostic" })
---   map("n", "]e", function()
---     vim.diagnostic.goto_next {
---       severity = vim.diagnostic.severity["ERROR"],
---     }
---   end, { desc = "Next error" })
---   map("n", "[e", function()
---     vim.diagnostic.goto_prev {
---       severity = vim.diagnostic.severity["ERROR"],
---     }
---   end, { desc = "Previous error" })
---   map("n", "]w", function()
---     vim.diagnostic.goto_next {
---       severity = vim.diagnostic.severity["WARN"],
---     }
---   end, { desc = "Next warning" })
---   map("n", "[w", function()
---     vim.diagnostic.goto_prev {
---       severity = vim.diagnostic.severity["WARN"],
---     }
---   end, { desc = "Previous warning" })
-
---   -- search
---   map("n", "<leader>sr", function()
---     require("telescope.builtin").lsp_references { jump_type = "vsplit" }
---   end, { desc = "Search references" })
---   map("n", "<leader>ss", function()
---     require("telescope.builtin").lsp_document_symbols()
---   end, { desc = "Search symbols" })
---   map("n", "<leader>sd", function()
---     require("telescope.builtin").diagnostics { bufnr = 0 }
---   end, { desc = "Search diagnostics" })
---   map("n", "<leader>sD", function()
---     require("telescope.builtin").diagnostics { bufnr = nil }
---   end, { desc = "Search diagnostics (all buffers)" })
-
---   if client.supports_method "callHierarchy/incomingCalls" then
---     map("n", "<leader>sc", function()
---       require("telescope.builtin").lsp_incoming_calls()
---     end, { desc = "Search incoming calls" })
---   end
---   if client.supports_method "callHierarchy/outgoingCalls" then
---     map("n", "<leader>sC", function()
---       require("telescope.builtin").lsp_outgoing_calls()
---     end, { desc = "Search outgoing calls" })
---   end
-
---   -- edits
---   map("n", "<leader>cr", function()
---     vim.lsp.buf.rename()
---   end, { desc = "Rename" })
---   map({ "n", "v" }, "<leader>ca", function()
---     vim.lsp.buf.code_action()
---   end, { desc = "Code action" })
---   map("n", "<leader>cA", function()
---     vim.lsp.buf.code_action {
---       context = { only = { "source" }, diagnostics = {} },
---     }
---   end, { desc = "Source action" })
---   map("n", "<leader>cf", function()
---     require("conform").format()
---   end, { desc = "Format" })
---   map("v", "<leader>cf", function()
---     require("conform").format()
---   end, { desc = "Format selection" })
-
---   -- help
---   map("n", "K", function()
---     vim.lsp.buf.hover()
---   end, { desc = "Hover information" })
---   map("n", "gK", function()
---     vim.lsp.buf.signature_help()
---   end, { desc = "Signature help" })
---   map("i", "<c-k>", function()
---     vim.lsp.buf.signature_help()
---   end, { desc = "Signature help" })
---   vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
-
---   -- which-key
---   local mappings = {
---     { "<leader>c", group = "code" },
---   }
---   local options = {
---     mode = { "n", "v" },
---     buffer = ev.buf,
---   }
---   local wk = require "which-key"
---   wk.add(mappings, options)
--- end
-
--- return {
+  -- return {
 --   "neovim/nvim-lspconfig",
 --   config = function(_, opts)
 --     local lspconfig = require "lspconfig"
@@ -380,27 +424,22 @@ return {
 --     },
 --     opts = { ensure_installed = {} },
 --   },
---   init = function()
---     vim.api.nvim_create_autocmd("LspAttach", {
---       group = vim.api.nvim_create_augroup("LspConfig", {}),
---       callback = on_attach,
---     })
+  -- init = function()
+  --   vim.api.nvim_create_autocmd("LspAttach", {
+  --     group = vim.api.nvim_create_augroup("LspConfig", {}),
+  --     callback = on_attach,
+  --   })
 
---     -- update lsp floating window settings
---     -- local max_width = 80
---     vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {}) --, { max_width = max_width })
---     vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {}) --, { max_width = max_width })
+    -- update lsp floating window settings
+    -- local max_width = 80
 
---     -- cursorhold
---     vim.opt.updatetime = 250
 
---     -- diagnostics
---     vim.diagnostic.config {
---       update_in_insert = false,
---       virtual_text = false,
---     }
---   end,
---   opts = {
---     servers = {},
---   },
--- }
+   -- opts = {
+   --   servers = {},
+   -- }
+     -- diagnostics
+     -- vim.diagnostic.config {
+     --   update_in_insert = false,
+     --   virtual_text = false,
+     -- }
+   -- end
